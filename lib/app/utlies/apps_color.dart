@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Primary
   static const Color primary = Color(0xFF4F85AA);
+  // Get Start Text color Page 2
   static const Color bgTextDark = Color(0xFF333333); // Dark background color
-
-  // Background
+  static const Color buttonColor = Color(0xFF4F85AA);
 
   static const Color whiteBackground = Color(0xFFF8F9FB);
   // Strokes

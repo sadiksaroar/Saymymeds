@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
+  final String? text; // make it nullable
+  final Widget? child; // optional custom child
+  final VoidCallback? onPressed;
   final Color backgroundColor;
   final double borderRadius;
   final double height;
@@ -10,13 +11,17 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton({
     super.key,
-    required this.text,
-    required this.onPressed,
-    this.backgroundColor = const Color(0xFF90CAF9),
+    this.text,
+    this.child,
+    this.onPressed,
+    this.backgroundColor = const Color(0xFF4F85AA),
     this.height = 50,
     this.width = double.infinity,
-    this.borderRadius = 8, // Default value দিলাম
-  });
+    this.borderRadius = 8,
+  }) : assert(
+         text != null || child != null,
+         "Either text or child must be provided",
+       );
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +31,18 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
+          disabledBackgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 16, color: Colors.white),
-        ),
+        child:
+            child ??
+            Text(
+              text!,
+              style: const TextStyle(fontSize: 24, color: Colors.white),
+            ),
       ),
     );
   }

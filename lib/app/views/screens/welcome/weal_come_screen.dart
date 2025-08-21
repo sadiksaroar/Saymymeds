@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
+// import 'package:saymymeds/app/widgets/AppBodyText/app_bosy_text.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:saymymeds/app/widgets/AppTitleText/app_title_text.dart';
 import 'package:saymymeds/app/widgets/CustomButton/custom_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -42,35 +45,35 @@ class WelcomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Headline
-                    Text(
-                      "Identify Your Medication Instantly",
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
+                    AppTitleText("Identify Your Medication Instantly"),
+                    const SizedBox(height: 15),
 
                     // Description
                     Text(
                       "Scan any pill bottle or package with AI and get accurate details, dosage, and safety information right on your device.",
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.black54,
-                        height: 1.5,
+                      style: GoogleFonts.openSans(
+                        color: Color(0xFF848484),
+                        fontSize: 18, // 20px
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        height: 1.0, // line-height: 100%
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
 
                     // Get Started Button
                     CustomButton(
                       backgroundColor: AppColors.buttonColor,
-                      text: "Get start",
+                      child: Text(
+                        "Get start",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          height: 1.0,
+                        ),
+                      ),
                       onPressed: () {
-                        // Your onPressed action here
                         context.go('/signin');
                       },
                     ),

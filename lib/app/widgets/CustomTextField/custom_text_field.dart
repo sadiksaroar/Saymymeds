@@ -4,12 +4,14 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final bool isPassword;
+  final String opatictyColor;
 
   const CustomTextField({
     Key? key,
     required this.controller,
     required this.hintText,
     this.isPassword = false,
+    required this.opatictyColor,
   }) : super(key: key);
 
   @override

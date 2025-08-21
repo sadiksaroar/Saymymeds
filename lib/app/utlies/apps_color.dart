@@ -6,6 +6,8 @@ class AppColors {
   // Get Start Text color Page 2
   static const Color bgTextDark = Color(0xFF333333); // Dark background color
   static const Color buttonColor = Color(0xFF4F85AA);
+  // forget passwoed
+  static const Color forgetPasswordOpacity = Color(0xFF4F85AA);
 
   static const Color whiteBackground = Color(0xFFF8F9FB);
   // Strokes

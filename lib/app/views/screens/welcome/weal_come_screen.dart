@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
 // import 'package:saymymeds/app/widgets/AppBodyText/app_bosy_text.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saymymeds/app/widgets/AppTitleText/app_title_text.dart';
-import 'package:saymymeds/app/widgets/CustomButton/custom_button.dart';
+import 'package:saymymeds/app/views/components/AppTitleText/app_title_text.dart';
+import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

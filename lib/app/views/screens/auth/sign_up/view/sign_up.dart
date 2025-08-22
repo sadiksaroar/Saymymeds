@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
-import 'package:saymymeds/app/widgets/AppHeadingText/app_hedaing_text.dart';
-import 'package:saymymeds/app/widgets/AppSubtitleText/app_subtitle_text.dart';
-import 'package:saymymeds/app/widgets/CustomButton/custom_button.dart';
-import 'package:saymymeds/app/widgets/CustomTextField/custom_text_field.dart';
+import 'package:saymymeds/app/views/components/AppHeadingText/app_hedaing_text.dart';
+import 'package:saymymeds/app/views/components/AppSubtitleText/app_subtitle_text.dart';
+import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
+import 'package:saymymeds/app/views/components/CustomTextField/custom_text_field.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});

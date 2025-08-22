@@ -3,9 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
-import 'package:saymymeds/app/widgets/AppHeadingText/app_hedaing_text.dart';
-import 'package:saymymeds/app/widgets/AppSubtitleText/app_subtitle_text.dart';
-import 'package:saymymeds/app/widgets/CustomButton/custom_button.dart';
+import 'package:saymymeds/app/views/components/AppHeadingText/app_hedaing_text.dart';
+import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
 
 class EnterCode extends StatefulWidget {
   const EnterCode({super.key});

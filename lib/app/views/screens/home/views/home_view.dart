@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeViewPage extends StatefulWidget {
@@ -14,14 +13,16 @@ class _HomeViewPageState extends State<HomeViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                ////////// Header
-                Row(
+      body: SingleChildScrollView(
+        // SafeArea বাদ দেওয়া হলো
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              ////////// Header
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -44,7 +45,6 @@ class _HomeViewPageState extends State<HomeViewPage> {
                                 fontStyle: FontStyle.normal,
                                 fontSize: 16.0,
                                 height: 1.0,
-                                letterSpacing: 0.0,
                                 color: Colors.black,
                               ),
                             ),
@@ -56,7 +56,6 @@ class _HomeViewPageState extends State<HomeViewPage> {
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12.0,
                                 height: 1.0,
-                                letterSpacing: 0.0,
                                 color: Colors.black,
                               ),
                             ),
@@ -64,161 +63,187 @@ class _HomeViewPageState extends State<HomeViewPage> {
                         ),
                       ],
                     ),
-                    Image.asset(
-                      "assets/icons/raja.png", // Use Image widget for asset image
-                      width: 48, // Set width to adjust icon size
-                      height: 48, // Set height to adjust icon size
-                    ),
+                    Image.asset("assets/icons/raja.png", width: 48, height: 48),
                   ],
                 ),
-                const SizedBox(height: 20),
+              ),
+              const SizedBox(height: 20),
 
-                // ---------------- SCAN MEDICATION CARD ----------------
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+              // ---------------- SCAN MEDICATION CARD ----------------
+              Container(
+                height: 573,
+                // padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF4FAAA2), Color(0xFF4F85AA)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
-                  elevation: 2,
-                  child: Container(
-                    height: 573,
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF4FAAA2),
-                          Color(0xFF4F85AA),
-                          // Color.fromRGBO(79, 133, 170, 0.9),
-                        ], // background gradient
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                ),
+                child: Column(
+                  // mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Image + white divider
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromRGBO(
+                              248,
+                              249,
+                              251,
+                              0,
+                            ), // rgba(248, 249, 251, 0)
+                            Color.fromRGBO(
+                              79,
+                              133,
+                              170,
+                              0.9,
+                            ), // rgba(79, 133, 170, 0.9)
+                          ],
+                          stops: [0.0, 0.9], // 0% and 90% stops
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Stack to overlay the Divider over the image
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            // Image layer
-                            Image.asset(
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Image.asset(
                               "assets/images/.png.png",
                               height: 323,
                               fit: BoxFit.contain,
                             ),
-                            // Gradient overlay layer
-                            Container(
-                              height: 255, // Match the height of the image
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment
-                                      .topCenter, // Start the gradient from top
-                                  end: Alignment
-                                      .bottomCenter, // End the gradient at the bottom
-                                  colors: [
-                                    Color.fromRGBO(
-                                      248,
-                                      249,
-                                      251,
-                                      0,
-                                    ), // rgba(248, 249, 251, 0)
-                                    Color.fromRGBO(
-                                      79,
-                                      133,
-                                      170,
-                                      0.9,
-                                    ), // rgba(79, 133, 170, 0.9)
-                                  ],
-                                  stops: [
-                                    0.0,
-                                    0.9,
-                                  ], // Control the stop points for the gradient
-                                ),
-                              ),
-                            ),
-                            // Divider layer
-                            Positioned(
-                              bottom: 35, // Adjust the position of the divider
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                width: double
-                                    .infinity, // Make the divider stretch across the full width
-                                child: const Divider(
-                                  color: Colors.white70,
-                                  thickness: 5,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ), // Additional space if needed
-                        // Title Text
-                        const Text(
-                          "Scan Medication",
-                          style: TextStyle(
-                            color: Color(0xFFF8F9FB),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600, // SemiBold weight
-                            fontSize: 30.0,
-                            height: 1.0,
-                            letterSpacing: 0.0,
                           ),
-                        ),
-                        const SizedBox(height: 6),
+                          Positioned(
+                            // bottom: ,
+                            bottom: 30,
+                            left: 0,
+                            right: 0,
+                            child: Divider(thickness: 3.2, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
 
-                        // Description Text
-                        const Text(
-                          "Point your camera at the label\n to identify your medication.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFFF8F9FB),
-                            fontFamily: 'Open Sans',
-                            fontWeight: FontWeight.w400, // Regular weight
-                            fontSize: 22.0,
-                            height: 1.09,
-                            letterSpacing: 0.0,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
+                    const Text(
+                      "Scan Medication",
+                      style: TextStyle(
+                        color: Color(0xFFF8F9FB),
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 30.0,
+                        height: 1.0,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      "Point your camera at the label\n to identify your medication.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFFF8F9FB),
+                        fontFamily: 'Open Sans',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 22.0,
+                        height: 1.09,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
 
-                        // Scan Button
-                        ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(Icons.qr_code_scanner, size: 50),
-                          label: const Text(
-                            "Scan",
-                            style: TextStyle(
-                              color: Color(0xFF333333),
-                              fontFamily: 'Open Sans',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 50.0,
-                              height: 1.0,
-                              letterSpacing: 0.0,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            minimumSize: const Size(
-                              320,
-                              84,
-                            ), // Set width 320 and height 84
-                          ),
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.qr_code_scanner, size: 50),
+
+                      label: const Text(
+                        "Scan",
+                        style: TextStyle(
+                          color: Color(0xFF333333),
+                          fontFamily: 'Open Sans',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 40.0,
+                          height: 1.0,
                         ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        minimumSize: const Size(320, 84),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              //
+              SizedBox(height: 25),
+
+              /*DefaultTabController(
+                length: 2,
+                child: Column(
+                  children: [
+                    TabBar(
+                      // labelColor: Colors.black,
+                      // unselectedLabelColor: Colors.grey,
+                      // indicatorColor: null,
+                      dividerColor: Colors.amber,
+                      indicator: BoxDecoration(
+                        color: Color(0xFFF8F9FB),
+                        borderRadius: BorderRadius.circular(45),
+                      ),
+                      tabs: const [
+                        Tab(text: "Recently scanned"),
+                        Tab(text: "All Medications"),
                       ],
                     ),
+                    SizedBox(
+                      height: 300, // adjust scroll height
+
+                      child: TabBarView(
+                        children: [
+                          // MedicationList(apiData: recentMeds), // API Data
+                          // MedicationList(apiData: allMeds), // API Data
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),*/
+              DefaultTabController(
+                length: 2, // Number of tabs
+                child: Container(
+                  height: 50,
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF2C2C2E),
+                    borderRadius: BorderRadius.circular(45),
+                  ),
+                  child: TabBar(
+                    indicator: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(34),
+                    ),
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.white,
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    unselectedLabelStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    tabs: [
+                      Tab(text: 'Recently scanned'),
+                      Tab(text: 'All Medications'),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

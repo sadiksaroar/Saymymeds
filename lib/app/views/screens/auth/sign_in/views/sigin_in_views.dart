@@ -68,7 +68,7 @@ class _SiginInViewsState extends State<SiginInViews> {
                   const SizedBox(height: 10),
                   CustomTextField(
                     // label: "Email",
-                    // icon: Icons.email, // You need to specify an icon here
+                    //  icon: Icons.email, // You need to specify an icon here
                     hintText: "emilysm@gmail.com",
                     controller: emailController,
                     opatictyColor: '', // Optional, only if needed

@@ -6,6 +6,7 @@ import 'package:saymymeds/app/views/screens/auth/sign_in/views/sigin_in_views.da
 import 'package:saymymeds/app/views/screens/auth/sign_up/view/sign_up.dart';
 import 'package:saymymeds/app/views/screens/home/views/bottom_nav.dart';
 import 'package:saymymeds/app/views/screens/splash/splash_screen.dart';
+import 'package:saymymeds/app/views/screens/view_details/view_detils.dart';
 import 'package:saymymeds/app/views/screens/welcome/weal_come_screen.dart';
 
 class AppRoutes {
@@ -22,8 +23,8 @@ class AppRoutes {
 
   // bottomNav start here
   static const String bottomNav = "/bottomNav";
-  // bottomNav end hre
-
+  // view dittels screen
+  static const String medicineDetailPage = "/medicineDetailPage";
   static final GoRouter router = GoRouter(
     initialLocation: splashScreen, // explicitly set initial route
     routes: [
@@ -56,6 +57,11 @@ class AppRoutes {
       // sign up screen
       GoRoute(path: signUp, builder: (context, state) => const SignUp()), // dd
       GoRoute(path: bottomNav, builder: (context, state) => const BottomNav()),
+
+      GoRoute(
+        path: medicineDetailPage,
+        builder: (context, state) => const MedicineDetailPage(),
+      ),
     ],
   );
 }

@@ -15,8 +15,23 @@ class AppColors {
   static const Color stroke2 = Color(0xFFE5EDF2);
   // Grey
   static const Color grey = Color(0xFF848484);
+  static const Color lightBlueGray = Color(0xFFC8D9E5);
   // Text
   static const Color text = Color(0xFF333333);
   // Delete/Action
   static const Color delete = Color(0xFFFF4C4C);
 }
+
+
+
+/*decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFF4F85AA), // #4F85AA
+                    Color(0xFFF8F9FB).withOpacity(0), // rgba(248, 249, 251, 0)
+                  ],
+                  stops: [0.0, 0.5673], // Stops corresponding to 0% and 56.73%
+                ),
+              ),*/

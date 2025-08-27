@@ -67,16 +67,27 @@ class AllMedications extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    medicine["name"]!,
-                                    style: const TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 30,
-                                      height: 1.0,
-                                      letterSpacing: 0.0,
-                                      color: Colors.black,
-                                    ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween, // Text ar Icon duitar moddhe space
+                                    children: [
+                                      Text(
+                                        medicine["name"]!,
+                                        style: const TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 30,
+                                          height: 1.0,
+                                          letterSpacing: 0.0,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      // Icon(
+                                      //   Icons.delete, // apni je icon chai seta
+                                      //   color: Colors.red,
+                                      //   size: 28,
+                                      // ),
+                                    ],
                                   ),
                                   // const SizedBox(height: 10),
                                   // Dosage: bold

@@ -5,12 +5,16 @@ import 'package:saymymeds/app/views/screens/auth/new_password/view/new_password.
 import 'package:saymymeds/app/views/screens/auth/sign_in/views/sigin_in_views.dart';
 import 'package:saymymeds/app/views/screens/auth/sign_up/view/sign_up.dart';
 import 'package:saymymeds/app/views/screens/home/views/bottom_nav.dart';
+import 'package:saymymeds/app/views/screens/home/views/screens/SubscriptionCard/subscription_card.dart';
+import 'package:saymymeds/app/views/screens/medications/view/medication.dart';
+import 'package:saymymeds/app/views/screens/settings/view/edit_profile.dart';
+import 'package:saymymeds/app/views/screens/settings/view/language_selection.dart';
+import 'package:saymymeds/app/views/screens/settings/view/setting_page.dart';
 import 'package:saymymeds/app/views/screens/splash/splash_screen.dart';
 import 'package:saymymeds/app/views/screens/view_details/view_detils.dart';
 import 'package:saymymeds/app/views/screens/welcome/weal_come_screen.dart';
 
 class AppRoutes {
-  ////////////////
   static const String splashScreen = "/";
   static const String welcomeScreen = "/welcome";
   // auth start
@@ -19,12 +23,18 @@ class AppRoutes {
   static const String enterCode = "/enterCode";
   static const String newPassword = "/newPassword";
   static const String signUp = "/signUp";
-  // auth end
 
-  // bottomNav start here
   static const String bottomNav = "/bottomNav";
   // view dittels screen
   static const String medicineDetailPage = "/medicineDetailPage";
+  static const String subscriptionCard = "/subscriptionCard";
+  // Setting
+  static const String settingPage = "/settingPage";
+  static const String editProfile = "/editProfile";
+  static const String languageSelection = "/languageSelection";
+
+  static const String medication = "/medication";
+
   static final GoRouter router = GoRouter(
     initialLocation: splashScreen, // explicitly set initial route
     routes: [
@@ -62,6 +72,19 @@ class AppRoutes {
         path: medicineDetailPage,
         builder: (context, state) => const MedicineDetailPage(),
       ),
+      GoRoute(
+        path: subscriptionCard,
+        builder: (context, state) => const SubscriptionCard(),
+      ),
+
+      GoRoute(path: settingPage, builder: (context, state) => SettingPage()),
+
+      GoRoute(path: editProfile, builder: (context, state) => EditProfile()),
+      GoRoute(
+        path: languageSelection,
+        builder: (context, state) => LanguageSelection(),
+      ),
+      GoRoute(path: medication, builder: (context, state) => Medication()),
     ],
   );
 }

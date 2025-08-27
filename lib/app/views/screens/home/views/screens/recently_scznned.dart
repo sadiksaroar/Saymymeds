@@ -216,7 +216,7 @@ class RecentlyScznned extends StatelessWidget {
                   ),
                   onPressed: () {
                     // Navigates to the 'signin' screen when the icon is pressed
-                    context.push('');
+                    context.push('/subscriptionCard');
                   },
                 ),
               ],

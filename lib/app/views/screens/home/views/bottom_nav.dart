@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saymymeds/app/views/screens/home/views/home_view.dart';
+import 'package:saymymeds/app/views/screens/medications/view/medication.dart';
+import 'package:saymymeds/app/views/screens/settings/view/setting_page.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -14,8 +16,8 @@ class _BottomNavState extends State<BottomNav> {
   final List<Widget> _pages = [
     HomeViewPage(),
     const Center(child: Text("Scan Page")),
-    const Center(child: Text("Medications Page")),
-    const Center(child: Text("Settings Page")),
+    Medication(),
+    SettingPage(),
   ];
 
   void _onItemTapped(int index) {

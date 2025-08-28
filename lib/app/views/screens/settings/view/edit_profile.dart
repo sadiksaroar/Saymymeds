@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
+import 'package:saymymeds/app/views/screens/home/views/bottom_nav.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -134,7 +135,11 @@ class _EditProfileState extends State<EditProfile> {
               controller: _firstNameController,
               decoration: const InputDecoration(
                 labelText: "First name",
-                border: UnderlineInputBorder(),
+                labelStyle: TextStyle(color: AppColors.grey, fontSize: 18),
+
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -144,7 +149,10 @@ class _EditProfileState extends State<EditProfile> {
               controller: _lastNameController,
               decoration: const InputDecoration(
                 labelText: "Last name",
-                border: UnderlineInputBorder(),
+                labelStyle: TextStyle(color: AppColors.grey, fontSize: 20),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -155,7 +163,10 @@ class _EditProfileState extends State<EditProfile> {
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 labelText: "Email",
-                border: UnderlineInputBorder(),
+                labelStyle: TextStyle(color: AppColors.grey, fontSize: 20),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
               ),
             ),
             const SizedBox(height: 50),
@@ -183,13 +194,14 @@ class _EditProfileState extends State<EditProfile> {
                 },
                 child: const Text(
                   "Save changes",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ),
           ],
         ),
       ),
+      // bottomNavigationBar: BottomNav(),
     );
   }
 }

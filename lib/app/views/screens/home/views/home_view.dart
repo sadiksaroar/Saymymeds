@@ -248,6 +248,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:saymymeds/app/views/components/CustomTabBarWidget/custom_tabBar_widget.dart'; // Ensure the path is correct
 import 'package:saymymeds/app/views/screens/home/views/screens/all_medications.dart';
 import 'package:saymymeds/app/views/screens/home/views/screens/recently_scznned.dart';
@@ -385,7 +386,9 @@ class _HomeViewPageState extends State<HomeViewPage> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push("/imageScannerScreen");
+                      },
                       icon: const Icon(Icons.qr_code_scanner, size: 50),
                       label: const Text(
                         "Scan",

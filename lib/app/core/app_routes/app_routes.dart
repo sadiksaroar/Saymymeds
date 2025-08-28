@@ -7,6 +7,7 @@ import 'package:saymymeds/app/views/screens/auth/sign_up/view/sign_up.dart';
 import 'package:saymymeds/app/views/screens/home/views/bottom_nav.dart';
 import 'package:saymymeds/app/views/screens/home/views/screens/SubscriptionCard/subscription_card.dart';
 import 'package:saymymeds/app/views/screens/medications/view/medication.dart';
+import 'package:saymymeds/app/views/screens/scan/image_scanner_screen.dart';
 import 'package:saymymeds/app/views/screens/settings/view/edit_profile.dart';
 import 'package:saymymeds/app/views/screens/settings/view/language_selection.dart';
 import 'package:saymymeds/app/views/screens/settings/view/setting_page.dart';
@@ -23,20 +24,20 @@ class AppRoutes {
   static const String enterCode = "/enterCode";
   static const String newPassword = "/newPassword";
   static const String signUp = "/signUp";
-
   static const String bottomNav = "/bottomNav";
-  // view dittels screen
   static const String medicineDetailPage = "/medicineDetailPage";
   static const String subscriptionCard = "/subscriptionCard";
-  // Setting
   static const String settingPage = "/settingPage";
   static const String editProfile = "/editProfile";
   static const String languageSelection = "/languageSelection";
 
   static const String medication = "/medication";
+  static const String imageScannerScreen = '/imageScannerScreen';
+
+  /* ------------------------------------------------------------------------------------------------------*/
 
   static final GoRouter router = GoRouter(
-    initialLocation: splashScreen, // explicitly set initial route
+    initialLocation: splashScreen,
     routes: [
       GoRoute(
         path: splashScreen,
@@ -65,7 +66,7 @@ class AppRoutes {
         builder: (context, state) => const NewPassword(),
       ),
       // sign up screen
-      GoRoute(path: signUp, builder: (context, state) => const SignUp()), // dd
+      GoRoute(path: signUp, builder: (context, state) => const SignUp()),
       GoRoute(path: bottomNav, builder: (context, state) => const BottomNav()),
 
       GoRoute(
@@ -85,6 +86,11 @@ class AppRoutes {
         builder: (context, state) => LanguageSelection(),
       ),
       GoRoute(path: medication, builder: (context, state) => Medication()),
+
+      GoRoute(
+        path: imageScannerScreen,
+        builder: (context, state) => ImageScannerScreen(),
+      ),
     ],
   );
 }

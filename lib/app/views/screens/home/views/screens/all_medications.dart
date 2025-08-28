@@ -126,7 +126,7 @@ class AllMedications extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () =>
-                                        context.go("/medicineDetailPage"),
+                                        context.push("/medicineDetailPage"),
                                     child: const Text(
                                       'View details',
                                       style: TextStyle(

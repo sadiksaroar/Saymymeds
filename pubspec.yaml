@@ -44,7 +44,12 @@ dependencies:
   flutter_gen: ^5.11.0
   pin_code_fields: ^8.0.1
   google_fonts: ^6.3.0
+
+  #  image sca ne
   mobile_scanner: ^7.0.1
+  camera: ^0.10.6
+  permission_handler_ohos: ^0.0.6
+  permission_handler: ^12.0.1
 
 dev_dependencies:
   flutter_test:

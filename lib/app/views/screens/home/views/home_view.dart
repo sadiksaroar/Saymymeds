@@ -249,9 +249,11 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/views/components/CustomTabBarWidget/custom_tabBar_widget.dart'; // Ensure the path is correct
 import 'package:saymymeds/app/views/screens/home/views/screens/all_medications.dart';
 import 'package:saymymeds/app/views/screens/home/views/screens/recently_scznned.dart';
+import 'package:saymymeds/app/widgets/BottomNav.dart';
 
 class HomeViewPage extends StatefulWidget {
   const HomeViewPage({super.key});
@@ -261,8 +263,30 @@ class HomeViewPage extends StatefulWidget {
 }
 
 class _HomeViewPageState extends State<HomeViewPage> {
+  int _currentIndex = 1;
+
   @override
   Widget build(BuildContext context) {
+    void _onNavTap(int index) {
+      setState(() {
+        _currentIndex = index;
+      });
+      switch (index) {
+        case 0:
+          context.go(AppRoutes.homeViewPage);
+          break;
+        case 1:
+          context.go(AppRoutes.imageScannerScreen);
+          break;
+        case 2:
+          context.go(AppRoutes.medication);
+          break;
+        case 3:
+          context.go(AppRoutes.settingPage);
+          break;
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -433,6 +457,10 @@ class _HomeViewPageState extends State<HomeViewPage> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onNavTap,
       ),
     );
   }

@@ -1,14 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
 import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
+import 'package:saymymeds/app/widgets/BottomNav.dart';
 
-class SubscriptionCard extends StatelessWidget {
+class SubscriptionCard extends StatefulWidget {
   const SubscriptionCard({super.key});
 
   @override
+  State<SubscriptionCard> createState() => _SubscriptionCardState();
+}
+
+class _SubscriptionCardState extends State<SubscriptionCard> {
+  @override
   Widget build(BuildContext context) {
+    int _currentIndex = 0;
+
+    void _onNavTap(int index) {
+      setState(() {
+        _currentIndex = index;
+      });
+      switch (index) {
+        case 0:
+          context.go(AppRoutes.homeViewPage);
+          break;
+        case 1:
+          context.go(AppRoutes.imageScannerScreen);
+          break;
+        case 2:
+          context.go(AppRoutes.medication);
+          break;
+        case 3:
+          context.go(AppRoutes.settingPage);
+          break;
+      }
+    }
+
     return Scaffold(
       backgroundColor: Color(0xFFF8F9FB),
       appBar: PreferredSize(
@@ -78,8 +107,8 @@ class SubscriptionCard extends StatelessWidget {
               children: [
                 SizedBox(height: 24),
                 Container(
-                  width: 400,
-                  height: 490,
+                  width: double.infinity,
+                  height: 520,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     // color: Colors.white,
@@ -151,7 +180,7 @@ class SubscriptionCard extends StatelessWidget {
                 SizedBox(height: 25),
                 Container(
                   width: 400,
-                  height: 550,
+                  height: 630,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     // color: Colors.white,
@@ -364,7 +393,7 @@ class SubscriptionCard extends StatelessWidget {
                 SizedBox(height: 25),
                 Container(
                   width: 400,
-                  height: 780,
+                  height: 850,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     // color: Colors.white,
@@ -446,7 +475,7 @@ class SubscriptionCard extends StatelessWidget {
 
                 Container(
                   width: 400,
-                  height: 520,
+                  height: 600,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     // color: Colors.white,
@@ -596,6 +625,10 @@ class SubscriptionCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onNavTap,
       ),
     );
   }

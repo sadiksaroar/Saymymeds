@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
 import 'package:saymymeds/app/views/screens/home/views/bottom_nav.dart';
+import 'package:saymymeds/app/widgets/BottomNav.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -14,6 +16,8 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  int _currentIndex = 0;
+
   File? _image;
   final ImagePicker _picker = ImagePicker();
 
@@ -38,6 +42,26 @@ class _EditProfileState extends State<EditProfile> {
       setState(() {
         _image = File(pickedFile.path);
       });
+    }
+  }
+
+  void _onNavTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    switch (index) {
+      case 0:
+        context.go(AppRoutes.homeViewPage);
+        break;
+      case 1:
+        context.go(AppRoutes.imageScannerScreen);
+        break;
+      case 2:
+        context.go(AppRoutes.medication);
+        break;
+      case 3:
+        context.go(AppRoutes.settingPage);
+        break;
     }
   }
 
@@ -101,7 +125,8 @@ class _EditProfileState extends State<EditProfile> {
                   radius: 50,
                   backgroundImage: _image != null
                       ? FileImage(_image!)
-                      : const AssetImage("assets/profile.jpg") as ImageProvider,
+                      : const AssetImage('assets/icons/Ellipse_Profile.png')
+                            as ImageProvider,
                 ),
                 GestureDetector(
                   onTap: _pickImage,
@@ -201,7 +226,10 @@ class _EditProfileState extends State<EditProfile> {
           ],
         ),
       ),
-      // bottomNavigationBar: BottomNav(),
+      bottomNavigationBar: CustomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onNavTap,
+      ),
     );
   }
 }

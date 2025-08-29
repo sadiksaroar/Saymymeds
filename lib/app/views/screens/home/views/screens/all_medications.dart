@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
 
@@ -38,6 +39,8 @@ class AllMedications extends StatelessWidget {
               final medicine = medicines[index];
               return SizedBox(
                 width: 400,
+                // width: screenWidth * 0.9,
+                // ScreenUtil().setWidth(100),
                 height: 190,
                 child: Card(
                   color: AppColors.whiteBackground,
@@ -53,7 +56,7 @@ class AllMedications extends StatelessWidget {
                       children: [
                         Image.asset(
                           medicine["image"]!,
-                          width: 144,
+                          width: 130,
                           height: 170,
                           fit: BoxFit.contain,
                         ),

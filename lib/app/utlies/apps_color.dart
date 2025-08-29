@@ -21,17 +21,3 @@ class AppColors {
   // Delete/Action
   static const Color delete = Color(0xFFFF4C4C);
 }
-
-
-
-/*decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF4F85AA), // #4F85AA
-                    Color(0xFFF8F9FB).withOpacity(0), // rgba(248, 249, 251, 0)
-                  ],
-                  stops: [0.0, 0.5673], // Stops corresponding to 0% and 56.73%
-                ),
-              ),*/

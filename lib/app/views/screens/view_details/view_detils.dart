@@ -571,7 +571,9 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
+import 'package:saymymeds/app/widgets/BottomNav.dart';
 
 // MedicineDetailPage
 class MedicineDetailPage extends StatefulWidget {
@@ -593,6 +595,28 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
   Widget build(BuildContext context) {
     const divider = Color(0xFF4F85AA);
     const blue = Color(0xFF4F85AA);
+
+    int _currentIndex = 1;
+
+    void _onNavTap(int index) {
+      setState(() {
+        _currentIndex = index;
+      });
+      switch (index) {
+        case 0:
+          context.go(AppRoutes.homeViewPage);
+          break;
+        case 1:
+          context.go(AppRoutes.imageScannerScreen);
+          break;
+        case 2:
+          context.go(AppRoutes.medication);
+          break;
+        case 3:
+          context.go(AppRoutes.settingPage);
+          break;
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -1009,6 +1033,10 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: CustomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onNavTap,
       ),
     );
   }

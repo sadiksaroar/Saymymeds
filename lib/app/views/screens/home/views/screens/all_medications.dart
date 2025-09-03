@@ -57,7 +57,7 @@ class AllMedications extends StatelessWidget {
                         Image.asset(
                           medicine["image"]!,
                           width: 130,
-                          height: 170,
+                          height: 190,
                           fit: BoxFit.contain,
                         ),
                         const SizedBox(width: 12),
@@ -79,7 +79,7 @@ class AllMedications extends StatelessWidget {
                                         style: const TextStyle(
                                           fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 30,
+                                          fontSize: 24,
                                           height: 1.0,
                                           letterSpacing: 0.0,
                                           color: Colors.black,
@@ -98,7 +98,7 @@ class AllMedications extends StatelessWidget {
                                   RichText(
                                     text: TextSpan(
                                       style: const TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 14,
                                         color: Colors.black87,
                                         fontFamily: 'Poppins',
                                       ),
@@ -135,7 +135,7 @@ class AllMedications extends StatelessWidget {
                                       style: TextStyle(
                                         fontFamily: 'Open Sans',
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 16.0,
+                                        fontSize: 12.0,
                                         height: 1.0,
                                         letterSpacing: 0.0,
                                         color: Color(0xFF4F85AA),

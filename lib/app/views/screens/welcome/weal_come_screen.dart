@@ -77,6 +77,7 @@ class WelcomeScreen extends StatelessWidget {
                         context.go('/signin');
                       },
                     ),
+                    SizedBox(height: 40),
                   ],
                 ),
               ),

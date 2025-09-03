@@ -120,7 +120,7 @@ class RecentlyScznned extends StatelessWidget {
                                       style: TextStyle(
                                         fontFamily: 'Open Sans',
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 16.0,
+                                        fontSize: 12.0,
                                         height: 1.0,
                                         letterSpacing: 0.0,
                                         color: Color(0xFF4F85AA),

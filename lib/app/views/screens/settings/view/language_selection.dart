@@ -21,7 +21,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     {"name": "Portuguese"},
   ];
 
-  int _currentIndex = 4;
+  int _currentIndex = 3;
 
   void _onNavTap(int index) {
     setState(() {

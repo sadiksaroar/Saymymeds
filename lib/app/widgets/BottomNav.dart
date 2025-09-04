@@ -54,7 +54,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               ),
               _buildNavItem(
                 icon: Icons.crop_free,
-                label: 'Translate',
+                label: 'Scane',
                 index: 1,
                 isSelected: widget.currentIndex == 1,
               ),

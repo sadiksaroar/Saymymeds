@@ -268,7 +268,7 @@ class _MedicationState extends State<Medication> {
                                       ),
                                       child: GestureDetector(
                                         onTap: () =>
-                                            context.go("/medicineDetailPage"),
+                                            context.push("/medicineDetailPage"),
                                         child: const Text(
                                           "Check info",
                                           style: TextStyle(

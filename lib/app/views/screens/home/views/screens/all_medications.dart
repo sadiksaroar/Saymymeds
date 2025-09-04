@@ -166,7 +166,7 @@ class AllMedications extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               InkWell(
-                onTap: () => context.go(""),
+                onTap: () => context.push("/medication"),
                 child: const Text(
                   'See all',
                   style: TextStyle(
@@ -231,7 +231,7 @@ class AllMedications extends StatelessWidget {
                   ),
                   onPressed: () {
                     // Navigates to the 'signin' screen when the icon is pressed
-                    context.push('');
+                    context.push('/subscriptionCard');
                   },
                 ),
               ],

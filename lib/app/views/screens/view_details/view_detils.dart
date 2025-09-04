@@ -596,7 +596,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
     const divider = Color(0xFF4F85AA);
     const blue = Color(0xFF4F85AA);
 
-    int _currentIndex = 1;
+    int _currentIndex = 0;
 
     void _onNavTap(int index) {
       setState(() {
@@ -693,21 +693,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                    DropdownMenuItem(
-                                      value: 'Chinese',
-                                      child: Text(
-                                        'Chinese (简体中文)',
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'Creole',
-                                      child: Text('Creole'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'Russian',
-                                      child: Text('Russian'),
-                                    ),
+                                  
                                     DropdownMenuItem(
                                       value: 'Portuguese',
                                       child: Text('Portuguese'),

@@ -18,10 +18,6 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     {"name": "English"},
     {"name": "Spanish (Español)"},
     {"name": "French (Français)"},
-    {"name": "German (Deutsch)"},
-    {"name": "Chinese (Simplified) (简体中文)"},
-    {"name": "Creole"},
-    {"name": "Russian"},
     {"name": "Portuguese"},
   ];
 

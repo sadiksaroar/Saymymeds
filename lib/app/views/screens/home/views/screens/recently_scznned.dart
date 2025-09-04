@@ -114,7 +114,7 @@ class RecentlyScznned extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () => context.go(""),
+                                    onTap: () => context.push("/medicineDetailPage"),
                                     child: const Text(
                                       'View details',
                                       style: TextStyle(
@@ -151,7 +151,7 @@ class RecentlyScznned extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               InkWell(
-                onTap: () => context.go(""),
+                onTap: () => context.push("/medication"),
                 child: const Text(
                   'See all',
                   style: TextStyle(

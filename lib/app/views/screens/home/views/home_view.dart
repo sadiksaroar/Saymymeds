@@ -15,7 +15,7 @@ class HomeViewPage extends StatefulWidget {
 }
 
 class _HomeViewPageState extends State<HomeViewPage> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   String lang = 'English';
 
   @override
@@ -117,21 +117,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            DropdownMenuItem(
-                              value: 'Chinese',
-                              child: Text(
-                                'Chinese (简体中文)',
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Creole',
-                              child: Text('Creole'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Russian',
-                              child: Text('Russian'),
-                            ),
+                          
                             DropdownMenuItem(
                               value: 'Portuguese',
                               child: Text('Portuguese'),

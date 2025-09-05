@@ -14,42 +14,42 @@ class SubscriptionCard extends StatefulWidget {
 }
 
 class _SubscriptionCardState extends State<SubscriptionCard> {
+  int _currentIndex = 0;
+
+  void _onNavTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    switch (index) {
+      case 0:
+        context.go(AppRoutes.homeViewPage);
+        break;
+      case 1:
+        context.go(AppRoutes.imageScannerScreen);
+        break;
+      case 2:
+        context.go(AppRoutes.medication);
+        break;
+      case 3:
+        context.go(AppRoutes.settingPage);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    int _currentIndex = 0;
-
-    void _onNavTap(int index) {
-      setState(() {
-        _currentIndex = index;
-      });
-      switch (index) {
-        case 0:
-          context.go(AppRoutes.homeViewPage);
-          break;
-        case 1:
-          context.go(AppRoutes.imageScannerScreen);
-          break;
-        case 2:
-          context.go(AppRoutes.medication);
-          break;
-        case 3:
-          context.go(AppRoutes.settingPage);
-          break;
-      }
-    }
-
     return Scaffold(
-      backgroundColor: Color(0xFFF8F9FB),
+      backgroundColor: const Color(0xFFF8F9FB),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0), // Adjust height
+        preferredSize: const Size.fromHeight(60.0),
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xFFF8F9FB), // AppBar background color
+            color: const Color(0xFFF8F9FB),
             boxShadow: [
               BoxShadow(
-                color: const Color(0x26000000), // Shadow color with opacity
-                offset: const Offset(0, 2), // Shadow position
-                blurRadius: 10, // Shadow blur radius
+                color: const Color(0x26000000),
+                offset: const Offset(0, 2),
+                blurRadius: 10,
               ),
             ],
           ),
@@ -70,565 +70,297 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
                   fontSize: 24,
-                  height: 1,
-                  letterSpacing: 0,
-                  color: AppColors.primary, // No letter-spacing
+                  color: AppColors.primary,
                 ),
               ),
             ),
-
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SizedBox(height: 15),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Image.asset(
-                    "assets/images/Logo 4.png",
-                    width: 88,
-                    height: 83,
-                  ),
-                ),
-              ],
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Center(
+            child: Image.asset(
+              "assets/images/Logo 4.png",
+              width: 88,
+              height: 83,
             ),
-            SizedBox(height: 25),
-            Column(
-              children: [
-                SizedBox(height: 24),
-                Container(
-                  width: double.infinity,
-                  height: 520,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    // color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.primary),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        "Subscribe",
-                        style: TextStyle(
-                          color: AppColors.bgTextDark,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "\$0",
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                            // SizedBox(),
-                            TextSpan(
-                              text: " /month",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-                      buildFeature(
-                        "Read up to three different prescriptions daily for one person",
-                      ),
-                      buildFeature(
-                        "Enjoy promotional offers tailored for your needs",
-                      ),
-                      buildFeature("Free with Ads"),
-                      buildFeature("Monthly app updates and user stories"),
-                      const SizedBox(height: 25),
-                      CustomButton(
-                        backgroundColor: AppColors.lightBlueGray,
-                        child: Text(
-                          "Current Plan",
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            color: Color(0xFFF8F9FB),
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            height: 1.0,
-                            letterSpacing: 0.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          ),
+          const SizedBox(height: 25),
 
-                SizedBox(height: 25),
-                Container(
-                  width: 400,
-                  height: 630,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    // color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.primary),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        "Voice Booster",
-                        style: TextStyle(
-                          color: AppColors.bgTextDark,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "\$5",
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                            // SizedBox(),
-                            TextSpan(
-                              text: " /month",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-                      buildFeature("Includes all subscriber rewards"),
-                      buildFeature(" Unlimited scans per day"),
-                      buildFeature(
-                        "10 scans per day with limited advertisements",
-                      ),
-                      buildFeature(
-                        "Early access to new app features (beta program)",
-                      ),
-                      buildFeature(
-                        "Behind-the-scenes updates on development and impact)",
-                      ),
+          // Subscription Cards
+          subscriptionCard(
+            title: "Subscribe",
+            price: "\$0",
+            features: [
+              "Read up to three different prescriptions daily for one person",
+              "Enjoy promotional offers tailored for your needs",
+              "Free with Ads",
+              "Monthly app updates and user stories",
+            ],
+            buttonText: "Current Plan",
+            buttonColor: AppColors.lightBlueGray,
+          ),
 
-                      const SizedBox(height: 25),
-                      CustomButton(
-                        backgroundColor: AppColors.buttonColor,
-                        child: Text(
-                          "Purchase Plan",
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            color: Color(0xFFF8F9FB),
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            height: 1.0,
-                            letterSpacing: 0.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          const SizedBox(height: 25),
+          subscriptionCard(
+            title: "Voice Booster",
+            price: "\$5",
+            features: [
+              "Includes all subscriber rewards",
+              "Unlimited scans per day",
+              "10 scans per day with limited advertisements",
+              "Early access to new app features (beta program)",
+              "Behind-the-scenes updates on development and impact",
+            ],
+            buttonText: "Purchase Plan",
+            buttonColor: AppColors.buttonColor,
+          ),
 
-                SizedBox(height: 25),
-                Container(
-                  height: 220,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/icons/Slogun banner.png',
-                      ), // Replace with your background image
-                      fit: BoxFit
-                          .cover, // Adjust how the image fits the container
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(
-                      20.0,
-                    ), // Add padding for text spacing
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Your donation helps bring ', // Normal text
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                              height: 1.2,
-                            ),
-                          ),
-                          TextSpan(
-                            text:
-                                'voice-based prescription support', // Bold text
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight:
-                                  FontWeight.bold, // Make this part bold
-                              fontFamily: 'Poppins',
-                              height: 1.2,
-                            ),
-                          ),
-                          TextSpan(
-                            text:
-                                ' to people with very low vision. Every tier helps us grow, reach more users, and build a safer, more accessible future.', // Normal text
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                              height: 1.2,
-                            ),
-                          ),
-                        ],
-                      ),
-                      textAlign: TextAlign.justify, // Align text in the center
-                    ),
-                  ),
-                ),
+          const SizedBox(height: 25),
+          // Banner
+          bannerWidget(
+            textParts: [
+              "Your donation helps bring ",
+              "voice-based prescription support",
+              "  Every tier helps us grow, reach more users, and build a safer, ",
+            ],
+          ),
 
-                SizedBox(height: 25),
-                Container(
-                  width: 400,
-                  height: 550,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    // color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.primary),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        "Accessibility Advocate",
-                        style: TextStyle(
-                          color: AppColors.bgTextDark,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "\$20",
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                            // SizedBox(),
-                            TextSpan(
-                              text: " /month",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-                      buildFeature("All Voice Booster rewards"),
-                      buildFeature(
-                        " Quarterly live Zoom call with the team & accessibility experts",
-                      ),
-                      buildFeature(
-                        "Digital badge + printable Certificate of Appreciation",
-                      ),
-                      buildFeature(
-                        "Name listed in the website supporter credits)",
-                      ),
+          const SizedBox(height: 25),
+          subscriptionCard(
+            title: "Accessibility Advocate",
+            price: "\$20",
+            features: [
+              "All Voice Booster rewards",
+              "Quarterly live Zoom call with the team & accessibility experts",
+              "Digital badge + printable Certificate of Appreciation",
+              "Name listed in the website supporter credits",
+            ],
+            buttonText: "Purchase Plan",
+            buttonColor: AppColors.buttonColor,
+          ),
 
-                      const SizedBox(height: 25),
-                      CustomButton(
-                        backgroundColor: AppColors.buttonColor,
-                        child: Text(
-                          "Purchase Plan",
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            color: Color(0xFFF8F9FB),
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            height: 1.0,
-                            letterSpacing: 0.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          const SizedBox(height: 25),
+          subscriptionCard(
+            title: "Health Hero",
+            price: "\$200",
+            features: [
+              "All Accessibility Advocate rewards",
+              "A donated premium subscription given in your honor to a low-vision user (with impact update!)",
+              "“Supporter Spotlight” mention in newsletter or social media (optional)",
+              "Input on feature development (exclusive surveys and feedback group)",
+              "Personalized thank-you video from a team member or user",
+              "Name and/or logo listed as a gold sponsor on our website",
+            ],
+            buttonText: "Purchase Plan",
+            buttonColor: AppColors.buttonColor,
+          ),
 
-                SizedBox(height: 25),
+          const SizedBox(height: 25),
+          subscriptionCard(
+            title: "Visionary Sponsor",
+            price: "\$500",
+            features: [
+              "All Health Hero rewards",
+              "Annual gift box",
+              "Name and/or logo listed as a platinum major sponsor on our website and inside the app",
+            ],
+            buttonText: "Purchase Plan",
+            buttonColor: AppColors.buttonColor,
+          ),
 
-                SizedBox(height: 25),
-                Container(
-                  width: 400,
-                  height: 850,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    // color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.primary),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        "Health Hero",
-                        style: TextStyle(
-                          color: AppColors.bgTextDark,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "\$200",
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                            // SizedBox(),
-                            TextSpan(
-                              text: " /month",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-                      buildFeature("All Accessibility Advocate rewards"),
-                      buildFeature(
-                        " A donated premium subscription given in your honor to a low-vision user (with impact update!)",
-                      ),
-                      buildFeature(
-                        "“Supporter Spotlight” mention in newsletter or social media (optional)",
-                      ),
-                      buildFeature(
-                        "Input on feature development (exclusive surveys and feedback group)",
-                      ),
-                      buildFeature(
-                        "Personalized thank-you video from a team member or user",
-                      ),
-                      buildFeature(
-                        "Name and/or logo listed as a gold sponsor on our website",
-                      ),
-
-                      const SizedBox(height: 25),
-                      CustomButton(
-                        backgroundColor: AppColors.buttonColor,
-                        child: Text(
-                          "Purchase Plan",
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            color: Color(0xFFF8F9FB),
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            height: 1.0,
-                            letterSpacing: 0.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(height: 25),
-
-                Container(
-                  width: 400,
-                  height: 600,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    // color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.primary),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        "Visionary Sponsor",
-                        style: TextStyle(
-                          color: AppColors.bgTextDark,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "\$500",
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                            // SizedBox(),
-                            TextSpan(
-                              text: " /month",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-                      buildFeature("All Health Hero rewards"),
-                      buildFeature(" Annual gift box"),
-                      buildFeature(
-                        "Name and/or logo listed as a platinum major sponsor on our website and inside the app",
-                      ),
-                      buildFeature(
-                        "Name and/or logo listed as a platinum major sponsor on our website and inside the app",
-                      ),
-
-                      const SizedBox(height: 25),
-                      CustomButton(
-                        backgroundColor: AppColors.buttonColor,
-                        child: Text(
-                          "Purchase Plan",
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            color: Color(0xFFF8F9FB),
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            height: 1.0,
-                            letterSpacing: 0.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(height: 25),
-                Container(
-                  height: 305,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/icons/Slogun banner.png',
-                      ), // Replace with your background image
-                      fit: BoxFit
-                          .cover, // Adjust how the image fits the container
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(
-                      20.0,
-                    ), // Add padding for text spacing
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 327,
-                          height: 53,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.whiteBackground,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Text(
-                            "One-Time Donations",
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text:
-                                    "Want to give without a monthly commitment? We welcome one-time contributions too — visit ",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              TextSpan(
-                                text: "saymymeds.com/donate",
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              TextSpan(
-                                text:
-                                    " or contact us directly for more ways to help.",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                          textAlign: TextAlign.justify,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+          const SizedBox(height: 25),
+          bannerWidget(
+            textParts: [
+              "Want to give without a monthly commitment? We welcome one-time contributions too — visit ",
+              "saymymeds.com/donate",
+              " or contact us directly for more ways to help.",
+            ],
+            isDonation: true,
+          ),
+        ],
       ),
       bottomNavigationBar: CustomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onNavTap,
+      ),
+    );
+  }
+
+  Widget subscriptionCard({
+    required String title,
+    required String price,
+    required List<String> features,
+    required String buttonText,
+    required Color buttonColor,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.primary),
+      ),
+      child: SingleChildScrollView(
+        // <-- prevents overflow
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: AppColors.bgTextDark,
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 15),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: price,
+                    style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                  const TextSpan(
+                    text: " /month",
+                    style: TextStyle(fontSize: 20, color: AppColors.primary),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25),
+            ...features.map((e) => buildFeature(e)).toList(),
+            const SizedBox(height: 25),
+            CustomButton(
+              backgroundColor: buttonColor,
+              child: Text(
+                buttonText,
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  color: const Color(0xFFF8F9FB),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget bannerWidget({
+    required List<String> textParts,
+    bool isDonation = false,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      height: isDonation ? 320 : 220,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        image: const DecorationImage(
+          image: AssetImage('assets/icons/Slogun banner.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: isDonation
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 327,
+                    height: 53,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteBackground,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Text(
+                      "One-Time Donations",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: textParts[0],
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        TextSpan(
+                          text: textParts[1],
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        TextSpan(
+                          text: textParts[2],
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              )
+            : Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: textParts[0],
+                      style: const TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    TextSpan(
+                      text: textParts[1],
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: textParts[2],
+                      style: const TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
       ),
     );
   }
@@ -648,13 +380,10 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(
-                fontFamily: 'Poppins', // Font family: Poppins
-                fontWeight: FontWeight.w500, // Medium weight (500)
-                fontStyle: FontStyle.normal, // Regular (not italic)
-                fontSize: 24, // Font size: 24px
-                height: 1.0, // Line height: 100%
-                letterSpacing: 0.0, // No letter-spacing
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
                 color: Colors.grey,
               ),
             ),

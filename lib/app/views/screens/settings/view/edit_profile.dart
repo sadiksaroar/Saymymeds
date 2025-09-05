@@ -21,12 +21,15 @@ class _EditProfileState extends State<EditProfile> {
   final ImagePicker _picker = ImagePicker();
 
   // Controllers for text fields
-  final TextEditingController _firstNameController =
-      TextEditingController(text: "Emily");
-  final TextEditingController _lastNameController =
-      TextEditingController(text: "Wilson");
-  final TextEditingController _emailController =
-      TextEditingController(text: "emilywil@gmail.com");
+  final TextEditingController _firstNameController = TextEditingController(
+    text: "Emily",
+  );
+  final TextEditingController _lastNameController = TextEditingController(
+    text: "Wilson",
+  );
+  final TextEditingController _emailController = TextEditingController(
+    text: "emilywil@gmail.com",
+  );
 
   Future<void> _pickImage() async {
     final XFile? pickedFile = await _picker.pickImage(
@@ -123,8 +126,8 @@ class _EditProfileState extends State<EditProfile> {
                     radius: 50,
                     backgroundImage: _image != null
                         ? FileImage(_image!)
-                        : const AssetImage('assets/icons/Ellipse_Profile.png')
-                            as ImageProvider,
+                        : const AssetImage('assets/images/eclipe.png')
+                              as ImageProvider,
                   ),
                   GestureDetector(
                     onTap: _pickImage,

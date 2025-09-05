@@ -54,19 +54,19 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               ),
               _buildNavItem(
                 icon: Icons.crop_free,
-                label: 'Scane',
+                label: 'Scan',
                 index: 1,
                 isSelected: widget.currentIndex == 1,
               ),
               _buildNavItem(
                 icon: Icons.medication,
-                label: 'Medistion',
+                label: 'Medications',
                 index: 2,
                 isSelected: widget.currentIndex == 2,
               ),
               _buildNavItem(
                 icon: Icons.settings,
-                label: 'Setting',
+                label: 'Settings',
                 index: 3,
                 isSelected: widget.currentIndex == 3,
               ),

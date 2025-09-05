@@ -18,6 +18,7 @@ class CustomTabWidget extends StatefulWidget {
     this.indicatorColor = Colors.white,
     this.selectedTextColor = Colors.black,
     this.unselectedTextColor = Colors.white,
+    required TextStyle tabTextStyle,
   }) : assert(
          tabTitles.length == tabViews.length,
          'Tab titles and views must have the same length',

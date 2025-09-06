@@ -407,6 +407,14 @@ class _HomeViewPageState extends State<HomeViewPage> {
                               child: Text('Creole'),
                             ),
                             DropdownMenuItem(
+                              value: "Russian",
+                              child: Text("Russian"),
+                            ),
+                            DropdownMenuItem(
+                              value: "Chinese",
+                              child: Text("Chinese"),
+                            ),
+                            DropdownMenuItem(
                               value: "Portugese",
                               child: Text("Portugese"),
                             ),
@@ -416,9 +424,18 @@ class _HomeViewPageState extends State<HomeViewPage> {
                         ),
                       ),
                     ),
-
+                    // /subscriptionCard
                     const SizedBox(width: 2),
-                    Image.asset("assets/icons/raja.png", width: 44, height: 44),
+                    InkWell(
+                      onTap: () {
+                        context.push("/subscriptionCard");
+                      },
+                      child: Image.asset(
+                        "assets/icons/raja.png",
+                        width: 44,
+                        height: 44,
+                      ),
+                    ),
                   ],
                 ),
               ),

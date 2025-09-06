@@ -20,6 +20,8 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     {"name": "French (Français)"},
     {"name": "Creole"},
     {"name": "Portugese "},
+    {"name": "Chinese"},
+    {"name": "Russian"},
   ];
 
   int _currentIndex = 3;

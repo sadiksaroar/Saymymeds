@@ -693,7 +693,19 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                  
+
+                                    DropdownMenuItem(
+                                      value: 'Creole',
+                                      child: Text('Creole'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Russian',
+                                      child: Text('Russian'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Chinese',
+                                      child: Text('Chinese'),
+                                    ),
                                     DropdownMenuItem(
                                       value: 'Portuguese',
                                       child: Text('Portuguese'),
@@ -819,12 +831,6 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.primary,
                                         ),
-                                      ),
-
-                                      _chipPills(
-                                        '(28 Pills)',
-
-                                        AppColors.buttonColor,
                                       ),
                                     ],
                                   ),

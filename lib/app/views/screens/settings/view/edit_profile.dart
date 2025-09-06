@@ -183,17 +183,17 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(height: 20),
 
               // Email
-              TextField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  labelText: "Email",
-                  labelStyle: TextStyle(color: AppColors.grey, fontSize: 20),
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ),
-              ),
+              // TextField(
+              //   controller: _emailController,
+              //   keyboardType: TextInputType.emailAddress,
+              //   decoration: const InputDecoration(
+              //     labelText: "Email",
+              //     labelStyle: TextStyle(color: AppColors.grey, fontSize: 20),
+              //     border: UnderlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.grey),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 50),
 
               // Save Button

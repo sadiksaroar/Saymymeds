@@ -107,6 +107,45 @@ class _SignUpState extends State<SignUp> {
                     isPassword: true,
                     opatictyColor: '', // This enables suffixIcon toggle
                   ),
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: rememberMe,
+                            onChanged: (value) {
+                              setState(() {
+                                rememberMe = value ?? false;
+                              });
+                            },
+                            activeColor: const Color(0xFF5B9BD5),
+                            // materialTapTargetSize: materialTapTargetSize.shri,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            visualDensity: VisualDensity.compact,
+                          ),
+
+                          const Text(
+                            'I agree with the terms and policies.',
+                            style: TextStyle(
+                              fontFamily: 'Open Sans',
+                              color: Color(0xFF848484),
+                              fontWeight: FontWeight.w600, // SemiBold
+                              fontStyle: FontStyle
+                                  .normal, // SemiBold has no specific font-style in Flutter
+                              fontSize: 18.0,
+                              height:
+                                  1.0, // 100% line-height (this is the same as line-height: 100%)
+                              letterSpacing: 0.0, // 0% letter-spacing
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                    ],
+                  ),
                 ],
               ),
 

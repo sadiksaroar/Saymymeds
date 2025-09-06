@@ -266,15 +266,14 @@ class _SettingPageState extends State<SettingPage> {
                 buildSettingsTile(
                   Icons.info_outline,
                   "About Us",
-                  () =>
-                   context.go("/settingPage"),
+                  () => context.go("/settingPage"),
                 ),
                 buildSettingsTile(
                   Icons.contact_mail_outlined,
                   "Contact Us",
                   () => context.go("/settingPage"),
                 ),
-                buildNotificationTile(),
+                // buildNotificationTile(),
                 const SizedBox(height: 30),
                 buildLogoutButton(),
                 const SizedBox(height: 30),

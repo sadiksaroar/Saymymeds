@@ -93,14 +93,19 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
           const SizedBox(height: 25),
 
           // Subscription Cards
+          bannerWidgetNextSupportSayMyMeds(
+            textParts: [
+              "Helping People Safely Read Their Prescriptions Say My Meds provides voice support for people with vision loss, limited literacy, or trouble identifying their medications. Your support makes it possible.",
+            ],
+          ),
+          SizedBox(height: 25),
           subscriptionCard(
-            title: "Subscribe",
+            title: "Member — Free ",
             price: "\$0",
             features: [
-              "Read up to three different prescriptions daily for one person",
-              "Enjoy promotional offers tailored for your needs",
-              "Free with Ads",
-              "Monthly app updates and user stories",
+              "Read up to 3 prescriptions daily (3 scans)",
+              " Free with ads",
+              // "Monthly updates & user stories ",
             ],
             buttonText: "Current Plan",
             buttonColor: AppColors.lightBlueGray,
@@ -109,20 +114,17 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
           const SizedBox(height: 25),
           subscriptionCard(
             title: "Voice Booster",
-            price: "\$5",
+            price: "\$4.99",
             features: [
-              "Includes all subscriber rewards",
-              "Unlimited scans per day",
-              "10 scans per day with limited advertisements",
-              "Early access to new app features (beta program)",
-              "Behind-the-scenes updates on development and impact",
+              "Read up to 10 prescriptions daily (10 scans) ",
+              "Monthly updates & user stories",
+              // "Behind-the-scenes updates ",
             ],
             buttonText: "Purchase Plan",
             buttonColor: AppColors.buttonColor,
           ),
 
           const SizedBox(height: 25),
-          // Banner
           bannerWidget(
             textParts: [
               "Your donation helps bring ",
@@ -134,28 +136,37 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
           const SizedBox(height: 25),
           subscriptionCard(
             title: "Accessibility Advocate",
-            price: "\$20",
+            price: "\$12.99",
             features: [
-              "All Voice Booster rewards",
-              "Quarterly live Zoom call with the team & accessibility experts",
-              "Digital badge + printable Certificate of Appreciation",
-              "Name listed in the website supporter credits",
+              "Read up to 30 prescriptions daily (30 scans)",
+              "Monthly updates & user stories",
+              "Digital badge + printable certificate",
+              "Your name listed on our supporter credits web page",
             ],
             buttonText: "Purchase Plan",
             buttonColor: AppColors.buttonColor,
           ),
+          const SizedBox(height: 25),
 
+          bannerWidgetNext(
+            textParts: [
+              "50 million Americans live with some degree of vision impairment (American Foundation for the Blind).",
+              "43 million U.S. adults are illiterate or functionally illiterate (National Literacy Institute).",
+              "54% of U.S. adults read below a 6th-grade level (APM Research Lab).",
+              "Your contribution helps people stay safe, independent, and avoid medical emergencies caused by medication mix-ups.",
+            ],
+          ),
           const SizedBox(height: 25),
           subscriptionCard(
             title: "Health Hero",
             price: "\$200",
             features: [
-              "All Accessibility Advocate rewards",
-              "A donated premium subscription given in your honor to a low-vision user (with impact update!)",
-              "“Supporter Spotlight” mention in newsletter or social media (optional)",
-              "Input on feature development (exclusive surveys and feedback group)",
-              "Personalized thank-you video from a team member or user",
-              "Name and/or logo listed as a gold sponsor on our website",
+              "Unlimited daily prescription reads ",
+              "Donate an “Accessibility Advocate” subscription to a low-vision user",
+              "“Supporter Spotlight” mention in our newsletter or social media ",
+              "Digital badge + printable certificate",
+              "Input on new features through exclusive surveys",
+              "Name/logo listed as a gold sponsor on our website ",
             ],
             buttonText: "Purchase Plan",
             buttonColor: AppColors.buttonColor,
@@ -166,9 +177,13 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
             title: "Visionary Sponsor",
             price: "\$500",
             features: [
-              "All Health Hero rewards",
+              "Unlimited prescription reads and an  “Accessibility Advocate” membership to donate",
               "Annual gift box",
-              "Name and/or logo listed as a platinum major sponsor on our website and inside the app",
+              "Name/logo listed as a platinum sponsor on our website and in the app",
+              "Quarterly call with leadership to share milestone progress",
+              "Monthly updates & user stories",
+              "Digital badge + printable certificate One-Time Donations",
+              "Want to help without a monthly plan? Visit saymymeds.com or contact us directly.",
             ],
             buttonText: "Purchase Plan",
             buttonColor: AppColors.buttonColor,
@@ -177,12 +192,14 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
           const SizedBox(height: 25),
           bannerWidget(
             textParts: [
-              "Want to give without a monthly commitment? We welcome one-time contributions too — visit ",
+              "Want to help without a monthly plan? Visit ",
               "saymymeds.com/donate",
-              " or contact us directly for more ways to help.",
+              " or contact us directly.",
             ],
             isDonation: true,
           ),
+
+          const SizedBox(height: 25),
         ],
       ),
       bottomNavigationBar: CustomNavigationBar(
@@ -206,65 +223,62 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.primary),
       ),
-      child: SingleChildScrollView(
-        // <-- prevents overflow
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                color: AppColors.bgTextDark,
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
-              ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: AppColors.bgTextDark,
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
             ),
-            const SizedBox(height: 15),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: price,
-                    style: const TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary,
-                    ),
+          ),
+          const SizedBox(height: 15),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: price,
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
                   ),
-                  const TextSpan(
-                    text: " /month",
-                    style: TextStyle(fontSize: 20, color: AppColors.primary),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 25),
-            ...features.map((e) => buildFeature(e)).toList(),
-            const SizedBox(height: 25),
-            CustomButton(
-              backgroundColor: buttonColor,
-              child: Text(
-                buttonText,
-                style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  color: const Color(0xFFF8F9FB),
-                  fontWeight: FontWeight.w600,
                 ),
+                const TextSpan(
+                  text: " /month",
+                  style: TextStyle(fontSize: 20, color: AppColors.primary),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 25),
+          ...features.map((e) => buildFeature(e)).toList(),
+          const SizedBox(height: 25),
+          CustomButton(
+            backgroundColor: buttonColor,
+            child: Text(
+              buttonText,
+              style: GoogleFonts.poppins(
+                fontSize: 20,
+                color: const Color(0xFFF8F9FB),
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget bannerWidget({
-    required List<String> textParts,
+    List<String>? textParts,
     bool isDonation = false,
+    Widget? customContent,
   }) {
     return Container(
       padding: const EdgeInsets.all(10),
-      height: isDonation ? 320 : 220,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         image: const DecorationImage(
@@ -274,96 +288,329 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: isDonation
-            ? Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 327,
-                    height: 53,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteBackground,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Text(
-                      "One-Time Donations",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.primary,
+        child:
+            customContent ??
+            (isDonation
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 327,
+                        height: 63,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteBackground,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "One-Time Donations",
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text.rich(
+                      const SizedBox(height: 16),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: textParts![0],
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            TextSpan(
+                              text: textParts[1],
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            TextSpan(
+                              text: textParts[2],
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )
+                : Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: textParts[0],
+                          text: textParts![0],
                           style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.white,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                         TextSpan(
                           text: textParts[1],
                           style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                             color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         TextSpan(
                           text: textParts[2],
                           style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.white,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
                     ),
                     textAlign: TextAlign.center,
-                  ),
-                ],
-              )
-            : Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: textParts[0],
-                      style: const TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    TextSpan(
-                      text: textParts[1],
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextSpan(
-                      text: textParts[2],
-                      style: const TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-                textAlign: TextAlign.center,
-              ),
+                  )),
       ),
     );
   }
+
+  /*
+  Widget bannerWidgetNext({List<String>? textParts, Widget? customContent}) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        image: const DecorationImage(
+          image: AssetImage('assets/icons/Slogun banner.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child:
+            customContent ??
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    "Why Your Support Matters ",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.stroke2,
+                    ),
+                  ),
+                ),
+                ...textParts!.map(
+                  (line) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "•  ", // Bullet symbol
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            // textAlign: TextAlign.jus
+                            line,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              height: 1.4,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+      ),
+    );
+  }
+*/
+  Widget bannerWidgetNext({List<String>? textParts, Widget? customContent}) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        image: const DecorationImage(
+          image: AssetImage('assets/icons/Slogun banner.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child:
+            customContent ??
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 327,
+                  height: 63,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteBackground,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      " Why Your Support Matters",
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12),
+                ...textParts!.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  String line = entry.value;
+                  bool isLast = index == textParts.length - 1;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (!isLast)
+                          const Text(
+                            "•  ", // Only show bullet if not last line
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        Expanded(
+                          child: Text(
+                            line,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              height: 1.4,
+                            ),
+                            // textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
+      ),
+    );
+  }
+  /*
+
+
+  */
+
+  Widget bannerWidgetNextSupportSayMyMeds({
+    List<String>? textParts,
+    Widget? customContent,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        image: const DecorationImage(
+          image: AssetImage('assets/icons/Slogun banner.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child:
+            customContent ??
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 327,
+                  height: 63,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteBackground,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Support Say My Meds",
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12),
+                ...textParts!.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  String line = entry.value;
+                  bool isLast = index == textParts.length - 1;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (!isLast)
+                          const Text(
+                            "•  ", // Only show bullet if not last line
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        Expanded(
+                          child: Text(
+                            line,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              height: 1.4,
+                            ),
+                            // textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
+      ),
+    );
+  }
+  //////////////////////////////////////////////////////////////////////////////
 
   Widget buildFeature(String text) {
     return Padding(

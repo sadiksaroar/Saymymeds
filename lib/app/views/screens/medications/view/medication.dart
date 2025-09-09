@@ -143,11 +143,11 @@ class _MedicationState extends State<Medication> {
           Expanded(
             child: ListView.builder(
               itemCount: medicines.length,
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               itemBuilder: (context, index) {
                 final medicine = medicines[index];
                 return SizedBox(
-                  width: 400,
+                  width: 380,
                   height: 190,
                   child: Card(
                     color: AppColors.whiteBackground,
@@ -156,7 +156,7 @@ class _MedicationState extends State<Medication> {
                       borderRadius: BorderRadius.circular(20),
                       side: const BorderSide(
                         color: Color(0xFF4F85AA),
-                        width: 1,
+                        width: 0.5,
                       ),
                     ),
                     child: Padding(

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +9,7 @@ import 'package:saymymeds/app/views/components/AppHeadingText/app_hedaing_text.d
 import 'package:saymymeds/app/views/components/AppSubtitleText/app_subtitle_text.dart';
 import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
 import 'package:saymymeds/app/views/components/CustomTextField/custom_text_field.dart';
+import 'package:http/http.dart';
 
 class SiginInViews extends StatefulWidget {
   const SiginInViews({super.key});
@@ -20,6 +24,23 @@ class _SiginInViewsState extends State<SiginInViews> {
 
   bool rememberMe = false;
   bool isPasswordVisible = false;
+
+  void login(String email, password) async {
+    try {
+      Response response = await post(
+        Uri.parse("http://10.10.7.24:8002/account/register/"),
+        body: {'email': email, 'password': password},
+      );
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        print("account created sucesFull");
+      } else {
+        print("faild");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +87,20 @@ class _SiginInViewsState extends State<SiginInViews> {
                 children: [
                   const AppSubtitleText('Email'),
                   const SizedBox(height: 10),
-                  CustomTextField(
-                    // label: "Email",
-                    //  icon: Icons.email, // You need to specify an icon here
-                    hintText: "emilysm@gmail.com",
-                    controller: emailController,
-                    opatictyColor: '', // Optional, only if needed
+                  GestureDetector(
+                    onTap: () {
+                      login(
+                        emailController.text.toString(),
+                        passwordController.text.toString(),
+                      );
+                    },
+                    child: CustomTextField(
+                      // label: "Email",
+                      //  icon: Icons.email, // You need to specify an icon here
+                      hintText: "emilysm@gmail.com",
+                      controller: emailController,
+                      opatictyColor: '', // Optional, only if needed
+                    ),
                   ),
                   const SizedBox(height: 15),
                   const AppSubtitleText('Password'),

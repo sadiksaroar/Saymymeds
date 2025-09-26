@@ -1,204 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:saymymeds/app/utlies/apps_color.dart';
-// import 'package:saymymeds/app/views/components/AppHeadingText/app_hedaing_text.dart';
-// import 'package:saymymeds/app/views/components/AppSubtitleText/app_subtitle_text.dart';
-// import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
-// import 'package:saymymeds/app/views/components/CustomTextField/custom_text_field.dart';
-
-// class SignUp extends StatefulWidget {
-//   const SignUp({super.key});
-
-//   @override
-//   State<SignUp> createState() => _SignUpState();
-// }
-
-// class _SignUpState extends State<SignUp> {
-//   final TextEditingController nameController = TextEditingController();
-//   final TextEditingController emailController = TextEditingController();
-//   final TextEditingController passwordController = TextEditingController();
-//   final TextEditingController confirmPasswordController =
-//       TextEditingController();
-
-//   bool rememberMe = false;
-//   bool isPasswordVisible = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         toolbarHeight: 80,
-//         centerTitle: true,
-//         title: Image.asset("assets/images/Logo 4.png", height: 83, width: 88),
-//         leading: IconButton(
-//           icon: Image.asset(
-//             "assets/icons/Back_Icon.png",
-//             height: 44,
-//             width: 44,
-//           ),
-//           onPressed: () {
-//             context.push('/signin');
-//           },
-//         ),
-
-//         elevation: 0,
-//       ),
-//       body: SafeArea(
-//         child: SingleChildScrollView(
-//           padding: const EdgeInsets.all(24),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               Column(
-//                 // crossAxisAlignment: CrossAxisAlignment.center,
-//                 children: [
-//                   Center(
-//                     child: Container(
-//                       width: 250,
-//                       height: 60,
-//                       decoration: BoxDecoration(
-//                         // color: const Color(0xFF5B9BD5),
-//                         borderRadius: BorderRadius.circular(16),
-//                       ),
-//                       child: Center(child: AppHeadingText("Sign Up")),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   const AppSubtitleText('Name'),
-//                   const SizedBox(height: 12),
-//                   CustomTextField(
-//                     // label: "Email",
-//                     // icon: Icons.email, // You need to specify an icon here
-//                     hintText: "Emily smith",
-//                     controller: nameController,
-//                     opatictyColor: '', // Optional, only if needed
-//                   ),
-//                   const SizedBox(height: 12),
-//                   const AppSubtitleText('Email'),
-//                   const SizedBox(height: 12),
-//                   CustomTextField(
-//                     // label: "Email",
-//                     // icon: Icons.email, // You need to specify an icon here
-//                     hintText: "emilysm@gmail.com",
-//                     controller: emailController,
-//                     opatictyColor: '', // Optional, only if needed
-//                   ),
-//                   const SizedBox(height: 12),
-//                   const AppSubtitleText('Password'),
-//                   const SizedBox(height: 12),
-//                   CustomTextField(
-//                     hintText: "*********",
-//                     controller: passwordController,
-//                     isPassword: true,
-//                     opatictyColor: '', // This enables suffixIcon toggle
-//                   ),
-//                   const SizedBox(height: 12),
-//                   const AppSubtitleText('Confirm Password'),
-//                   const SizedBox(height: 12),
-//                   CustomTextField(
-//                     hintText: "*********",
-//                     controller: confirmPasswordController,
-//                     isPassword: true,
-//                     opatictyColor: '', // This enables suffixIcon toggle
-//                   ),
-//                   const SizedBox(height: 12),
-//                   // Row(
-//                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   //   children: [
-//                   //     Row(
-//                   //       children: [
-//                   //         Checkbox(
-//                   //           value: rememberMe,
-//                   //           onChanged: (value) {
-//                   //             setState(() {
-//                   //               rememberMe = value ?? false;
-//                   //             });
-//                   //           },
-//                   //           activeColor: const Color(0xFF5B9BD5),
-//                   //           // materialTapTargetSize: materialTapTargetSize.shri,
-//                   //           materialTapTargetSize:
-//                   //               MaterialTapTargetSize.shrinkWrap,
-//                   //           visualDensity: VisualDensity.compact,
-//                   //         ),
-
-//                   //         const Text(
-//                   //           'I agree with the terms and policies.',
-//                   //           style: TextStyle(
-//                   //             fontFamily: 'Open Sans',
-//                   //             color: Color(0xFF848484),
-//                   //             fontWeight: FontWeight.w600, // SemiBold
-//                   //             fontStyle: FontStyle
-//                   //                 .normal, // SemiBold has no specific font-style in Flutter
-//                   //             fontSize: 18.0,
-//                   //             height:
-//                   //                 1.0, // 100% line-height (this is the same as line-height: 100%)
-//                   //             letterSpacing: 0.0, // 0% letter-spacing
-//                   //           ),
-//                   //         ),
-//                   //       ],
-//                   //     ),
-//                   //     const SizedBox(height: 40),
-//                   //   ],
-//                   // ),
-//                 ],
-//               ),
-
-//               SizedBox(height: 25),
-
-//               CustomButton(
-//                 backgroundColor: AppColors.buttonColor,
-//                 text: "Sign up",
-//                 onPressed: () {
-//                   // Your action here
-//                 },
-//               ),
-//               SizedBox(height: 20),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   SizedBox(
-//                     width: 50, // adjust this width as needed
-//                     child: Divider(thickness: 0.8, color: Colors.grey),
-//                   ),
-//                   const Padding(
-//                     padding: EdgeInsets.symmetric(horizontal: 8.0),
-//                     child: Text(
-//                       "or",
-//                       style: TextStyle(color: Colors.grey, fontSize: 14),
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     width: 50, // adjust this width as needed
-//                     child: Divider(thickness: 0.8, color: Colors.grey),
-//                   ),
-//                 ],
-//               ),
-
-//               SizedBox(height: 20),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   Image.asset("assets/icons/Google.png", height: 70, width: 70),
-//                   const SizedBox(width: 16),
-//                   Image.asset("assets/icons/Apple.png", height: 70, width: 70),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' show post;
 import 'package:saymymeds/app/utlies/apps_color.dart';
 import 'package:saymymeds/app/views/components/AppHeadingText/app_hedaing_text.dart';
 import 'package:saymymeds/app/views/components/AppSubtitleText/app_subtitle_text.dart';
@@ -218,6 +22,22 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  // void login(String email, password) async {
+  //   try {
+  //     Response response = await post(
+  //       Uri.parse(""),
+  //       body: {'email': email, 'password': password},
+  //     );
+  //     if (response.statusCode == 200) {
+  //       var data = jsonDecode(response.body.toString());
+  //       print("account created sucesFull");
+  //     } else {
+  //       print("faild");
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -340,136 +160,6 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  //   void _showTermsAndConditions(BuildContext context) {
-  //     bool agreed = false;
-  //     showModalBottomSheet(
-  //       backgroundColor: AppColors.whiteBackground,
-  //       context: context,
-  //       isScrollControlled: true,
-  //       shape: const RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-  //       ),
-  //       builder: (context) {
-  //         return StatefulBuilder(
-  //           builder: (context, setState) {
-  //             return Padding(
-  //               padding: EdgeInsets.only(
-  //                 bottom: MediaQuery.of(context).viewInsets.bottom,
-  //               ),
-  //               child: Container(
-  //                 height: MediaQuery.of(context).size.height * 0.8,
-  //                 padding: const EdgeInsets.all(16),
-  //                 child: Column(
-  //                   children: [
-  //                     Container(
-  //                       width: 50,
-  //                       height: 5,
-  //                       decoration: BoxDecoration(
-  //                         color: Colors.grey[300],
-  //                         borderRadius: BorderRadius.circular(10),
-  //                       ),
-  //                     ),
-  //                     const SizedBox(height: 16),
-  //                     const Text(
-  //                       "Say My Meds – End User Agreement",
-  //                       style: TextStyle(
-  //                         fontSize: 21,
-  //                         fontWeight: FontWeight.bold,
-  //                       ),
-  //                     ),
-  //                     const SizedBox(height: 12),
-  //                     Expanded(
-  //                       child: SingleChildScrollView(
-  //                         child: Text(
-  //                           """
-  // 1. Acceptance of Terms
-  // By downloading, installing, or using the Say My Meds application (“App”), you (“End User”) agree to be bound by this End User Agreement (“Agreement”). If you do not agree with these terms, you must not use or access the App.
-
-  // 2. Informational Use Only
-  // The App is provided solely for informational purposes to assist users in reading and understanding medication labels. The App is not a medical device and should not be relied upon for medical decision-making.
-
-  // 3. No Medical Advice
-  // • The App does not provide medical advice, diagnosis, or treatment.
-  // • The App is not a substitute for professional medical advice, judgment, or care.
-  // • Always consult a licensed physician, pharmacist, or other qualified healthcare provider for any medical questions or concerns.
-  // • Never disregard professional medical advice or delay seeking care because of information provided by the App.
-
-  // 4. End User Acknowledgment
-  // By using the App, you expressly acknowledge and agree that:
-  // 1. You understand the App is not intended to replace medical professionals.
-  // 2. You assume full responsibility for verifying all medication instructions with your healthcare provider or pharmacist.
-  // 3. You are solely responsible for your reliance on the App and any actions taken based on its use.
-  // 4. You release and hold harmless Say My Meds, its affiliates, officers, employees, contractors, and licensors from any and all liability associated with your use of the App.
-
-  // 5. Disclaimer of Warranties
-  // The App is provided “as is” and “as available”, without any warranties of any kind, express or implied.
-  // • Say My Meds makes no guarantees as to the accuracy, reliability, timeliness, or completeness of any information provided through the App.
-  // • To the fullest extent permitted by law, Say My Meds disclaims all warranties, including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, and uninterrupted service.
-
-  // 6. Limitation of Liability
-  // To the maximum extent permitted by law:
-  // • Say My Meds, its affiliates, officers, employees, contractors, and licensors shall not be liable for any indirect, incidental, consequential, special, exemplary, or punitive damages, including but not limited to damages for loss of profits, data, goodwill, or other intangible losses, arising out of or related to the use or inability to use the App.
-  // • Say My Meds shall not be liable for any damages resulting from errors, inaccuracies, omissions, delays, or interruptions in service.
-  // • The aggregate liability of Say My Meds for all claims arising under this Agreement, whether in contract, tort, or otherwise, shall be limited to the amount paid (if any) by the End User to access the App in the twelve (12) months preceding the claim.
-
-  // 7. Indemnification
-  // You agree to indemnify, defend, and hold harmless Say My Meds and its affiliates, officers, employees, contractors, and licensors from and against any claims, liabilities, damages, losses, or expenses (including reasonable attorneys’ fees) arising out of or in any way connected with your use of the App or violation of this Agreement.
-
-  // 8. Updates and Modifications
-  // Say My Meds may update, modify, or discontinue the App or this Agreement at any time. Continued use of the App following such updates constitutes acceptance of the revised terms.
-
-  // 9. Governing Law
-  // This Agreement shall be governed by and construed in accordance with the laws of the State of Florida, United States, without regard to conflict of law principles.
-  //                           """,
-  //                           style: const TextStyle(fontSize: 18, height: 1.6),
-  //                           textAlign: TextAlign.justify,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     Row(
-  //                       children: [
-  //                         Checkbox(
-  //                           value: agreed,
-  //                           onChanged: (value) {
-  //                             setState(() {
-  //                               agreed = value ?? false;
-  //                             });
-  //                           },
-  //                         ),
-  //                         const Expanded(
-  //                           child: Text(
-  //                             "I have read and agree to the Terms & Conditions.",
-  //                             style: TextStyle(fontSize: 14),
-  //                           ),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                     CustomButton(
-  //                       backgroundColor: agreed
-  //                           ? AppColors.buttonColor
-  //                           : AppColors.lightBlueGray,
-  //                       text: "Proceed",
-  //                       onPressed: agreed
-  //                           ? () {
-  //                               Navigator.pop(context);
-  //                               // Here you can handle the actual signup action
-  //                               ScaffoldMessenger.of(context).showSnackBar(
-  //                                 const SnackBar(
-  //                                   content: Text("Signed Up Successfully!"),
-  //                                 ),
-  //                               );
-  //                             }
-  //                           : null,
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             );
-  //           },
-  //         );
-  //       },
-  //     );
-  //   }
   void _showTermsAndConditions(BuildContext context) {
     bool agreed = false;
     showModalBottomSheet(

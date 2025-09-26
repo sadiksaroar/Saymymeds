@@ -550,6 +550,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
                   SizedBox(
                     height: 700, // Adjust as needed
                     child: const RecentlyScznned(),
+                    // AllMedications()
                   ),
                 ],
               ),

@@ -52,6 +52,7 @@ dependencies:
   permission_handler: ^12.0.1
   modal_progress_hud_nsn: ^0.5.1
   http: ^1.5.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

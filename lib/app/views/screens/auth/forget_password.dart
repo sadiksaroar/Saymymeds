@@ -7,14 +7,14 @@ import 'package:saymymeds/app/views/components/AppSubtitleText/app_subtitle_text
 import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
 import 'package:saymymeds/app/views/components/CustomTextField/custom_text_field.dart';
 
-class ForgetPasswordScreen extends StatefulWidget {
-  const ForgetPasswordScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController emailController = TextEditingController();
   bool isEmailFilled = false;
 
@@ -34,6 +34,20 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     super.dispose();
   }
 
+  void onVerifyPressed() {
+    final email = emailController.text.trim();
+
+    if (email.isEmpty || !email.contains("@")) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter a valid email address")),
+      );
+      return;
+    }
+
+    // Navigate to next screen (enter code)
+    context.go('/enterCode');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +56,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         backgroundColor: Colors.white,
         toolbarHeight: 80,
         centerTitle: true,
+        elevation: 0,
         title: Image.asset("assets/images/Logo 4.png", height: 83, width: 88),
         leading: IconButton(
           icon: Image.asset(
@@ -49,12 +64,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             height: 44,
             width: 44,
           ),
-          onPressed: () {
-            context.push('/signin');
-          },
+          onPressed: () => context.go('/signin'),
         ),
-
-        elevation: 0,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -63,67 +74,56 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                width: double.infinity,
                 height: 60,
-                child: Center(child: AppHeadingText("Forget password")),
+                child: Center(child: AppHeadingText("Forgot Password")),
               ),
               const SizedBox(height: 8),
-              const SizedBox(
-                width: double.infinity,
-                child: Text(
-                  "Provide the email linked to your account. We’ll send a password reset link to your inbox.",
-                  style: TextStyle(
-                    color: Color(0xFF848484),
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400, // Regular
-                    fontStyle: FontStyle.normal, // Regular is normal style
-                    fontSize: 16.0,
-                    height:
-                        1.5, // line-height: 24px (height = line height / font size)
-                    letterSpacing: 0.0, // 0px letter-spacing
-                  ),
+              const Text(
+                "Provide the email linked to your account. We’ll send a password reset link to your inbox.",
+                style: TextStyle(
+                  color: Color(0xFF848484),
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.0,
+                  height: 1.5,
                 ),
+                textAlign: TextAlign.start,
               ),
               const SizedBox(height: 24),
 
+              // Email Field
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const AppSubtitleText('Email'),
                   const SizedBox(height: 10),
                   CustomTextField(
-                    // label: "Email",
-                    // icon: Icons.email, // You need to specify an icon here
                     hintText: "emilysm@gmail.com",
                     controller: emailController,
-                    opatictyColor: '', // Optional, only if needed
+                    opatictyColor:
+                        '', // keep empty string if required by your widget
                   ),
                 ],
               ),
               const SizedBox(height: 40),
 
+              // Verify Button
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: CustomButton(
-                  onPressed: isEmailFilled
-                      ? () {
-                          context.go('/enterCode');
-                        }
-                      : null,
+                  onPressed: isEmailFilled ? onVerifyPressed : null,
                   backgroundColor: isEmailFilled
                       ? AppColors.primary
                       : const Color(0x804F85AA),
                   borderRadius: 15,
                   child: Text(
-                    "Verify code",
+                    "Verify Code",
                     style: GoogleFonts.poppins(
                       fontSize: 20,
-                      color: Color(0xFFF8F9FB),
+                      color: const Color(0xFFF8F9FB),
                       fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal,
                       height: 1.0,
-                      letterSpacing: 0.0,
                     ),
                   ),
                 ),

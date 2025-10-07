@@ -707,6 +707,7 @@ class _SignUpState extends State<SignUp> {
                             email: emailController.text.trim(),
                             password: passwordController.text.trim(),
                             password2: confirmPasswordController.text.trim(),
+                            context: context,
                           );
                         },
                 );

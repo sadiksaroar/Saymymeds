@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
@@ -10,6 +12,7 @@ import 'package:saymymeds/app/views/components/AppSubtitleText/app_subtitle_text
 import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
 import 'package:saymymeds/app/views/components/CustomTextField/custom_text_field.dart';
 import 'package:http/http.dart';
+import 'package:saymymeds/app/views/screens/auth/controller/auth_controller.dart';
 
 class SiginInViews extends StatefulWidget {
   const SiginInViews({super.key});
@@ -21,26 +24,10 @@ class SiginInViews extends StatefulWidget {
 class _SiginInViewsState extends State<SiginInViews> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final AuthController authController = Get.put(AuthController());
 
   bool rememberMe = false;
   bool isPasswordVisible = false;
-
-  void login(String email, password) async {
-    try {
-      Response response = await post(
-        Uri.parse("http://10.10.7.24:8002/account/register/"),
-        body: {'email': email, 'password': password},
-      );
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body.toString());
-        print("account created sucesFull");
-      } else {
-        print("faild");
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +75,7 @@ class _SiginInViewsState extends State<SiginInViews> {
                   const AppSubtitleText('Email'),
                   const SizedBox(height: 10),
                   GestureDetector(
-                    onTap: () {
-                      login(
-                        emailController.text.toString(),
-                        passwordController.text.toString(),
-                      );
-                    },
+                    onTap: () {},
                     child: CustomTextField(
                       // label: "Email",
                       //  icon: Icons.email, // You need to specify an icon here
@@ -187,22 +169,54 @@ class _SiginInViewsState extends State<SiginInViews> {
                 ],
               ),
               SizedBox(height: 25),
+
               // here of this screen login
-              CustomButton(
-                backgroundColor: AppColors.buttonColor,
-                child: Text(
-                  "Login",
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    height: 1.0,
-                  ),
+              // CustomButton(
+              //   backgroundColor: AppColors.buttonColor,
+              //   child: Text(
+              //     "Login",
+              //     style: GoogleFonts.poppins(
+              //       color: Colors.white,
+              //       fontSize: 16,
+              //       fontWeight: FontWeight.w600,
+              //       height: 1.0,
+              //     ),
+              //   ),
+              //   onPressed: () {},
+              // ),
+              Obx(
+                () => CustomButton(
+                  backgroundColor: AppColors.buttonColor,
+                  onPressed: authController.isLoading.value
+                      ? null
+                      : () {
+                          authController.login(
+                            context: context,
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                          );
+                        },
+                  child: authController.isLoading.value
+                      ? const SizedBox(
+                          height: 22,
+                          width: 22,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : Text(
+                          "Login",
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            height: 1.0,
+                          ),
+                        ),
                 ),
-                onPressed: () {
-                  context.go('/homeViewPage');
-                },
               ),
+
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

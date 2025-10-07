@@ -64,7 +64,7 @@ class AppRoutes {
       GoRoute(
         path: forgetPasswordScreen,
         builder: (context, state) =>
-            const ForgetPasswordScreen(), // fixed spelling
+            const ForgotPasswordScreen(), // fixed spelling
       ),
       GoRoute(
         path: enterCode, //
@@ -83,9 +83,34 @@ class AppRoutes {
         path: homeViewPage, //
         builder: (context, state) => HomeViewPage(),
       ),
+
+      // GoRoute(
+      //   path: verifyCode, //
+      //   builder: (context, state) => VerifyCode(email: 'ddd'),
+      // ),
+      // ✅ CORRECT - Pass email dynamically
       GoRoute(
-        path: verifyCode, //
-        builder: (context, state) => VerifyCode(email: ''),
+        path: verifyCode,
+        builder: (context, state) {
+          String email = '';
+
+          // Handle different types of extra data
+          if (state.extra != null) {
+            if (state.extra is String) {
+              // If it's a String, use it directly
+              email = state.extra as String;
+            } else if (state.extra is Map) {
+              // If it's a Map, extract the email key
+              final map = state.extra as Map;
+              email = map['email']?.toString() ?? '';
+            }
+          }
+
+          // Debug print
+          print("Email received in route: $email");
+
+          return VerifyCode(email: email);
+        },
       ),
       GoRoute(
         path: medicineDetailPage,

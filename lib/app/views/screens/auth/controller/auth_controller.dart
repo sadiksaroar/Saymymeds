@@ -15,6 +15,110 @@ class AuthController extends GetxController {
   var isLoading = false.obs;
   RxBool isCodeFilled = false.obs;
 
+  /* log in start hree */
+  Future<void> login({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    isLoading.value = true;
+
+    // Validate inputs
+    if (email.isEmpty || password.isEmpty) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Both Email and Password are required")),
+        );
+      }
+      isLoading.value = false;
+      return;
+    }
+
+    try {
+      final url = Uri.parse(ApiConstants.login);
+
+      final response = await http
+          .post(
+            url,
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: {"email": email, "password": password},
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () {
+              throw Exception('Connection timeout');
+            },
+          );
+
+      // Validate response body before parsing
+      if (response.body.isEmpty) {
+        throw Exception('Empty response from server');
+      }
+
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        // Save authentication data
+        if (data['token'] != null) {
+          await _saveAuthData(data['token'], data['user']);
+        }
+
+        if (!context.mounted) return;
+
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Login Successful ✅")));
+
+        context.go('/homeViewPage');
+      } else if (response.statusCode == 400 || response.statusCode == 401) {
+        if (!context.mounted) return;
+
+        final message = data["message"] ?? "Invalid credentials ❌";
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+      } else {
+        if (!context.mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Server error (${response.statusCode}). Please try again!",
+            ),
+          ),
+        );
+      }
+    } on SocketException {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("No internet connection ❌")));
+    } on TimeoutException {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Connection timeout. Please try again ⏱️"),
+        ),
+      );
+    } on FormatException {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Invalid server response")));
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  /* end  */
   Future<void> register({
     required BuildContext context, // ✅ add context
     required String name,
@@ -74,6 +178,7 @@ class AuthController extends GetxController {
   }
 
   /*  verify code start here*/
+
   Future<void> verifyOtp(BuildContext context, String email, String otp) async {
     try {
       // ✅ Validate inputs
@@ -186,109 +291,123 @@ class AuthController extends GetxController {
   }
 
   /*  verify code end here*/
-  // //////////////////
-  /*  log in start here*/
-  Future<void> login({
-    required BuildContext context,
-    required String email,
-    required String password,
-  }) async {
-    isLoading.value = true;
-
-    // Validate inputs
-    if (email.isEmpty || password.isEmpty) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Both Email and Password are required")),
-        );
-      }
-      isLoading.value = false;
-      return;
-    }
+  /* resend code */
+  Future<void> resendOtp(BuildContext context, String email) async {
+    OverlayEntry? overlayEntry;
 
     try {
-      final url = Uri.parse(ApiConstants.login);
+      // Show loading overlay
+      overlayEntry = OverlayEntry(
+        builder: (context) => Container(
+          color: Colors.black54,
+          child: const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          ),
+        ),
+      );
 
-      final response = await http
-          .post(
-            url,
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: {"email": email, "password": password},
-          )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () {
-              throw Exception('Connection timeout');
-            },
+      Overlay.of(context).insert(overlayEntry);
+
+      final response = await http.post(
+        Uri.parse(ApiConstants.resendOtp),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email}),
+      );
+
+      // Remove loading overlay
+      overlayEntry.remove();
+      overlayEntry = null;
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                data['message'] ?? 'OTP has been resent to your email',
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.green,
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(16),
+            ),
           );
+        }
+      } else if (response.statusCode == 400) {
+        final errorData = jsonDecode(response.body);
+        String errorMessage = 'Failed to resend OTP';
 
-      // Validate response body before parsing
-      if (response.body.isEmpty) {
-        throw Exception('Empty response from server');
-      }
-
-      final data = jsonDecode(response.body);
-
-      if (response.statusCode == 200) {
-        // Save authentication data
-        if (data['token'] != null) {
-          await _saveAuthData(data['token'], data['user']);
+        if (errorData['errors'] != null) {
+          final errors = errorData['errors'];
+          if (errors['email'] != null && errors['email'].isNotEmpty) {
+            errorMessage = errors['email'][0];
+          } else if (errors['message'] != null) {
+            errorMessage = errors['message'];
+          }
+        } else if (errorData['message'] != null) {
+          errorMessage = errorData['message'];
         }
 
-        if (!context.mounted) return;
-
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text("Login Successful ✅")));
-
-        context.go('/homeViewPage');
-      } else if (response.statusCode == 400 || response.statusCode == 401) {
-        if (!context.mounted) return;
-
-        final message = data["message"] ?? "Invalid credentials ❌";
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(message)));
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                errorMessage,
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.orange,
+              duration: const Duration(seconds: 4),
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(16),
+            ),
+          );
+        }
       } else {
-        if (!context.mounted) return;
+        final errorData = jsonDecode(response.body);
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                errorData['message'] ?? 'Failed to resend OTP',
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 3),
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(16),
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      // Remove loading overlay if still showing
+      overlayEntry?.remove();
 
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              "Server error (${response.statusCode}). Please try again!",
+              'Network error: Please check your connection',
+              style: const TextStyle(color: Colors.white),
             ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(16),
           ),
         );
       }
-    } on SocketException {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("No internet connection ❌")));
-    } on TimeoutException {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Connection timeout. Please try again ⏱️"),
-        ),
-      );
-    } on FormatException {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Invalid server response")));
-    } catch (e) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
-    } finally {
-      isLoading.value = false;
+      print('Resend OTP Error: $e');
     }
   }
+
+  /* resend end hre */
+
+  /*  log in start here*/
 
   // Helper method to save authentication data
   Future<void> _saveAuthData(String token, dynamic userData) async {
@@ -298,6 +417,60 @@ class AuthController extends GetxController {
   }
 
   /*  log in end here*/
+
+  /*  forgwt password satrt here  */
+
+  /*
+  Future<Map<String, dynamic>> resetPasswordOtp({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      final url = Uri.parse('$baseUrl/api/user/reset-password-otp/');
+      
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'email': email,
+          'otp': otp,
+        }),
+      );
+      
+      final responseData = jsonDecode(response.body);
+      
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'message': responseData['message'] ?? 'OTP verified successfully',
+          'data': responseData,
+        };
+      } else {
+        return {
+          'success': false,
+          'message': responseData['message'] ?? 'Failed to verify OTP',
+          'error': responseData,
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'message': 'An error occurred: ${e.toString()}',
+        'error': e.toString(),
+      };
+    }
+  }
+}
+
+*/
+
+  /*  forgwt password end  here  */
+
+  /* set new password start here {{saymymeds}}accounts/user/set-new-password/ */
+
+  /* set new password end  here {{saymymeds}}accounts/user/set-new-password/ */
 
   void _showSnackBar(
     BuildContext context,

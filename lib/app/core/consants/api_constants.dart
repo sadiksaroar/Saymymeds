@@ -5,7 +5,11 @@ class ApiConstants {
   static const String login = "$baseUrl/account/login/";
   static const String signup = "$baseUrl/account/register/";
   static const String otpVerify = "$baseUrl/account/verify-otp/";
-  static const String resendOtp = "/account/resend-otp/";
+  static const String resendOtp = "$baseUrl/account/resend-otp/";
+  static const String forgetPassword =
+      "$baseUrl/account/send-reset-password-email/";
+  static const String resetPasswordOtp =
+      "$baseUrl/api/user/reset-password-otp/";
   static const String token = "";
   /* authe end here  */
 

@@ -116,6 +116,10 @@ class _HomeViewPageState extends State<HomeViewPage> {
                               ),
                             ),
                             DropdownMenuItem(
+                              value: "Portugese",
+                              child: Text("Portugese"),
+                            ),
+                            DropdownMenuItem(
                               value: 'Creole',
                               child: Text('Creole'),
                             ),
@@ -126,10 +130,6 @@ class _HomeViewPageState extends State<HomeViewPage> {
                             DropdownMenuItem(
                               value: "Chinese",
                               child: Text("Chinese"),
-                            ),
-                            DropdownMenuItem(
-                              value: "Portugese",
-                              child: Text("Portugese"),
                             ),
                           ],
                           onChanged: (v) =>

@@ -61,19 +61,93 @@ class AppRoutes {
         path: siginIn,
         builder: (context, state) => const SiginInViews(), // fixed spelling
       ),
+
+      // GoRoute(
+      //   path: forgetPasswordScreen,
+      //   builder: (context, state) =>
+      //       const ForgotPasswordScreen(), // fixed spelling
+      // ),
+      // // GoRoute(
+      // //   path: enterCode, //
+      // //   builder: (context, state) => const EnterCode(),
+      // // ),
+
+      // // In your app_routes.dart or routing file
+      // GoRoute(
+      //   path: enterCode, // e.g., '/enter-code'
+      //   builder: (context, state) {
+      //     // Handle both String and Map types for extra
+      //     String? email;
+
+      //     if (state.extra != null) {
+      //       if (state.extra is String) {
+      //         email = state.extra as String;
+      //       } else if (state.extra is Map<String, dynamic>) {
+      //         email = (state.extra as Map<String, dynamic>)['email'];
+      //       }
+      //     }
+
+      //     return const EnterCode();
+      //   },
+      // ),
+      // // GoRoute(
+      // //   path: newPassword,
+      // //   builder: (context, state) => const NewPassword(),
+      // // ),
+      // GoRoute(
+      //   path: newPassword,
+      //   builder: (context, state) {
+      //     // ✅ Safely get the reset token from either .extra or ?token=
+      //     final token =
+      //         state.extra as String? ??
+      //         state.uri.queryParameters['token'] ??
+      //         '';
+      //     print('GoRouter passed token: $token');
+      //     return NewPassword(resetToken: token);
+      //   },
+      // ),
+
+      // ✅ Step 1: Forgot Password Screen
       GoRoute(
-        path: forgetPasswordScreen,
-        builder: (context, state) =>
-            const ForgotPasswordScreen(), // fixed spelling
+        path: AppRoutes.forgetPasswordScreen, // '/forgotPassword'
+        builder: (context, state) => const ForgotPasswordScreen(),
       ),
+
+      // ✅ Step 2: Enter OTP Code Screen
       GoRoute(
-        path: enterCode, //
-        builder: (context, state) => const EnterCode(),
+        path: AppRoutes.enterCode, // '/enterCode'
+        builder: (context, state) {
+          // Get email from navigation
+          String? email;
+
+          if (state.extra != null) {
+            if (state.extra is String) {
+              email = state.extra as String;
+            } else if (state.extra is Map<String, dynamic>) {
+              email = (state.extra as Map<String, dynamic>)['email'];
+            }
+          }
+
+          return const EnterCode();
+        },
       ),
+
+      // ✅ Step 3: Set New Password Screen
       GoRoute(
-        path: newPassword,
-        builder: (context, state) => const NewPassword(),
+        path: AppRoutes.newPassword, // '/newPassword'
+        builder: (context, state) {
+          // Get reset_token from navigation
+          final token =
+              state.extra as String? ??
+              state.uri.queryParameters['token'] ??
+              '';
+
+          print('🚀 GoRouter passed token to NewPassword: $token');
+
+          return NewPassword(resetToken: token);
+        },
       ),
+
       // sign up screen
       GoRoute(
         path: signUp, //  sa
@@ -84,11 +158,6 @@ class AppRoutes {
         builder: (context, state) => HomeViewPage(),
       ),
 
-      // GoRoute(
-      //   path: verifyCode, //
-      //   builder: (context, state) => VerifyCode(email: 'ddd'),
-      // ),
-      // ✅ CORRECT - Pass email dynamically
       GoRoute(
         path: verifyCode,
         builder: (context, state) {

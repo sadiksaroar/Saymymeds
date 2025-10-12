@@ -172,12 +172,6 @@ import 'package:saymymeds/app/utlies/apps_color.dart';
 import 'package:saymymeds/app/views/components/AppHeadingText/app_hedaing_text.dart';
 import 'package:saymymeds/app/views/components/CustomButton/custom_button.dart';
 
-// API Constants
-class ApiConstants {
-  static const String resetPasswordOtp =
-      "http://10.10.7.24:8002/api/user/reset-password-otp/";
-}
-
 // GetX Controller for EnterCode
 class EnterCodeController extends GetxController {
   final RxString otp = ''.obs;
@@ -185,7 +179,7 @@ class EnterCodeController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxString errorMessage = ''.obs;
 
-  // Verify OTP function with FastAPI error parsing
+  // ✅ Verify OTP and get reset_token
   Future<void> verifyCode(String email, BuildContext context) async {
     if (otp.value.length != 6) {
       errorMessage.value = 'Please enter a valid 6-digit OTP';
@@ -197,76 +191,136 @@ class EnterCodeController extends GetxController {
 
     try {
       final response = await http.post(
-        Uri.parse(ApiConstants.resetPasswordOtp),
+        Uri.parse('http://10.10.7.24:8002/account/reset-password-otp/'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'otp': otp.value}),
       );
 
-      print(
-        'Verify Response: Status ${response.statusCode}, Body: ${response.body}',
-      );
+      print('✅ Verify Response: Status ${response.statusCode}');
+      print('✅ Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
-        Get.snackbar('Success', 'OTP verified!');
-        context.go('/newPassword');
+        // ✅ Extract reset_token from response
+        final responseData = jsonDecode(response.body);
+        final resetToken = responseData['reset_token'] as String?;
+
+        print('🎫 Extracted reset_token: $resetToken');
+
+        if (resetToken == null || resetToken.isEmpty) {
+          errorMessage.value = 'Failed to get reset token from server';
+          isLoading.value = false;
+          return;
+        }
+
+        if (context.mounted) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('OTP verified successfully!'),
+                backgroundColor: Colors.green,
+              ),
+            );
+
+            // ✅ Navigate with reset_token
+            print('🚀 Navigating to NewPassword with token: $resetToken');
+            context.go('/newPassword', extra: resetToken);
+          });
+        }
       } else {
         String userError = _parseFastApiError(response.body);
         errorMessage.value = userError.isNotEmpty
             ? userError
             : 'Verification failed. Please try again.';
+
+        if (context.mounted) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(errorMessage.value),
+                backgroundColor: Colors.red,
+                duration: const Duration(seconds: 3),
+              ),
+            );
+          });
+        }
       }
     } catch (e) {
       errorMessage.value = 'Network error. Please check your connection.';
-      print('Verify Error: $e');
+      print('❌ Verify Error: $e');
     } finally {
       isLoading.value = false;
     }
   }
 
-  // Resend OTP function
-  Future<void> resendCode(String email) async {
+  // ✅ Resend OTP
+  Future<void> resendCode(String email, BuildContext context) async {
     isLoading.value = true;
     errorMessage.value = '';
 
     try {
       final response = await http.post(
-        Uri.parse(ApiConstants.resetPasswordOtp),
+        Uri.parse('http://10.10.7.24:8002/account/send-reset-password-email/'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email}),
       );
 
-      print(
-        'Resend Response: Status ${response.statusCode}, Body: ${response.body}',
-      );
+      print('✅ Resend Response: Status ${response.statusCode}');
 
-      if (response.statusCode == 200) {
-        errorMessage.value = 'OTP resent successfully. Check your email.';
-        Get.snackbar('Success', 'New OTP sent!');
-        otp.value = ''; // Clear OTP field
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        otp.value = '';
         isCodeFilled.value = false;
+
+        if (context.mounted) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('New OTP sent to your email!'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          });
+        }
       } else {
         String userError = _parseFastApiError(response.body);
         errorMessage.value = userError.isNotEmpty
             ? userError
             : 'Failed to resend OTP. Please try again.';
+
+        if (context.mounted) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(errorMessage.value),
+                backgroundColor: Colors.orange,
+              ),
+            );
+          });
+        }
       }
     } catch (e) {
       errorMessage.value = 'Network error. Please try again.';
-      print('Resend Error: $e');
+      print('❌ Resend Error: $e');
     } finally {
       isLoading.value = false;
     }
   }
 
-  // Parse FastAPI error responses
   String _parseFastApiError(String body) {
     try {
       final Map<String, dynamic> jsonBody = jsonDecode(body);
+
+      if (jsonBody.containsKey('non_field_errors')) {
+        final errors = jsonBody['non_field_errors'];
+        if (errors is List && errors.isNotEmpty) {
+          return errors.first.toString();
+        }
+      }
+
       if (jsonBody.containsKey('detail')) {
         final detail = jsonBody['detail'];
         if (detail is String) {
-          return detail; // e.g., "Invalid OTP"
-        } else if (detail is List) {
+          return detail;
+        } else if (detail is List && detail.isNotEmpty) {
           final firstError = detail.firstWhere(
             (e) => e['msg'] != null,
             orElse: () => null,
@@ -274,18 +328,25 @@ class EnterCodeController extends GetxController {
           return firstError?['msg'] ?? 'Invalid request';
         }
       }
+
+      for (var key in jsonBody.keys) {
+        if (jsonBody[key] is List && (jsonBody[key] as List).isNotEmpty) {
+          return '${key}: ${jsonBody[key][0]}';
+        }
+      }
     } catch (e) {
+      print('❌ Error parsing API response: $e');
       return '';
     }
     return '';
   }
 
-  // Update OTP and check length
   void updateOtp(String value) {
     otp.value = value;
     isCodeFilled.value = value.length == 6;
-    if (errorMessage.value.isNotEmpty)
-      errorMessage.value = ''; // Clear error on input
+    if (errorMessage.value.isNotEmpty) {
+      errorMessage.value = '';
+    }
   }
 }
 
@@ -296,9 +357,20 @@ class EnterCode extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final controller = Get.put(EnterCodeController());
-    final String email =
-        Get.arguments?['email'] ??
-        'mytrek@gmail.com'; // Dynamic email or fallback
+
+    // Get email from GoRouter
+    final state = GoRouterState.of(context);
+    String email = 'mytrek@gmail.com';
+
+    if (state.extra != null) {
+      if (state.extra is String) {
+        email = state.extra as String;
+      } else if (state.extra is Map<String, dynamic>) {
+        email = (state.extra as Map<String, dynamic>)['email'] ?? email;
+      }
+    }
+
+    print('📧 EnterCode received email: $email');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -313,9 +385,7 @@ class EnterCode extends StatelessWidget {
             height: 44,
             width: 44,
           ),
-          onPressed: () {
-            context.push('/signin');
-          },
+          onPressed: () => context.go('/signin'),
         ),
         elevation: 0,
       ),
@@ -417,37 +487,41 @@ class EnterCode extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              // Resend code section
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    "Haven’t got the email yet?",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16.0,
-                      height: 1.5,
-                      color: Color(0xFF848484),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: controller.isLoading.value
-                        ? null
-                        : () => controller.resendCode(email),
-                    child: const Text(
-                      "Resend code",
+              // Resend code
+              Obx(
+                () => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "Haven't got the email yet?",
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w400,
                         fontSize: 16.0,
                         height: 1.5,
-                        color: Color(0xFF4F85AA),
+                        color: Color(0xFF848484),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: controller.isLoading.value
+                          ? null
+                          : () => controller.resendCode(email, context),
+                      child: Text(
+                        "Resend code",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16.0,
+                          height: 1.5,
+                          color: controller.isLoading.value
+                              ? const Color(0xFF848484)
+                              : const Color(0xFF4F85AA),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

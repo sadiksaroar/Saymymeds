@@ -72,7 +72,7 @@ class AuthController extends GetxController {
           context,
         ).showSnackBar(const SnackBar(content: Text("Login Successful ✅")));
 
-        context.go('/homeViewPage');
+        context.go(AppRoutes.homeViewPage);
       } else if (response.statusCode == 400 || response.statusCode == 401) {
         if (!context.mounted) return;
 
@@ -410,10 +410,46 @@ class AuthController extends GetxController {
   /*  log in start here*/
 
   // Helper method to save authentication data
-  Future<void> _saveAuthData(String token, dynamic userData) async {
+  Future<void> _saveAuthData(dynamic token, dynamic userData) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('auth_token', token);
-    await prefs.setString('user_data', jsonEncode(userData));
+
+    // Normalize token to a String safely (handles String or Map)
+    String tokenStr = '';
+    try {
+      if (token == null) {
+        tokenStr = '';
+      } else if (token is String) {
+        tokenStr = token;
+      } else if (token is Map) {
+        // common token keys returned by APIs
+        tokenStr =
+            (token['token'] ??
+                    token['access'] ??
+                    token['access_token'] ??
+                    token['auth_token'])
+                ?.toString() ??
+            token.toString();
+      } else {
+        tokenStr = token.toString();
+      }
+    } catch (_) {
+      tokenStr = token?.toString() ?? '';
+    }
+
+    if (tokenStr.isNotEmpty) {
+      await prefs.setString('auth_token', tokenStr);
+    } else {
+      // remove existing saved token if nothing valid to save
+      await prefs.remove('auth_token');
+    }
+
+    // Store user data as JSON string (if provided)
+    if (userData != null) {
+      final userJson = userData is String ? userData : jsonEncode(userData);
+      await prefs.setString('user_data', userJson);
+    } else {
+      await prefs.remove('user_data');
+    }
   }
 
   /*  log in end here*/
@@ -489,5 +525,5 @@ class AuthController extends GetxController {
     );
   }
 }
-  /*   Verifiy  code end here   */
-  
+
+/*   Verifiy  code end here   */

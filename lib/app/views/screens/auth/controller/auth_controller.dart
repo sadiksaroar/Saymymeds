@@ -16,6 +16,7 @@ class AuthController extends GetxController {
   RxBool isCodeFilled = false.obs;
 
   /* log in start hree */
+  /*
   Future<void> login({
     required BuildContext context,
     required String email,
@@ -83,6 +84,117 @@ class AuthController extends GetxController {
       } else {
         if (!context.mounted) return;
 
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Server error (${response.statusCode}). Please try again!",
+            ),
+          ),
+        );
+      }
+    } on SocketException {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("No internet connection ❌")));
+    } on TimeoutException {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Connection timeout. Please try again ⏱️"),
+        ),
+      );
+    } on FormatException {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Invalid server response")));
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
+    } finally {
+      isLoading.value = false;
+    }
+  }
+  */
+
+  Future<void> login({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    isLoading.value = true;
+
+    // ✅ Input validation
+    if (email.isEmpty || password.isEmpty) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Both Email and Password are required")),
+        );
+      }
+      isLoading.value = false;
+      return;
+    }
+
+    try {
+      final url = Uri.parse(ApiConstants.login);
+
+      final response = await http
+          .post(
+            url,
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: {"email": email, "password": password},
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () {
+              throw Exception('Connection timeout');
+            },
+          );
+
+      // ✅ Check response body
+      if (response.body.isEmpty) {
+        throw Exception('Empty response from server');
+      }
+
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        // ✅ Extract access token
+        final tokenData = data["token"];
+        if (tokenData != null && tokenData["access"] != null) {
+          final accessToken = tokenData["access"];
+          await StorageHelper.saveToken(
+            accessToken,
+          ); // Save token to SharedPreferences
+          print("✅ Access Token Saved Successfully: $accessToken");
+        } else {
+          print("⚠️ No access token found in response");
+        }
+
+        // ✅ Optional: save full auth data if needed
+        // await _saveAuthData(data['token'], data['user']);
+
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Login Successful ✅")));
+
+        // ✅ Navigate to home
+        context.go(AppRoutes.homeViewPage);
+      } else if (response.statusCode == 400 || response.statusCode == 401) {
+        if (!context.mounted) return;
+        final message = data["message"] ?? "Invalid credentials ❌";
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+      } else {
+        if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(

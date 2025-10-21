@@ -15,6 +15,7 @@ import 'package:saymymeds/app/views/screens/settings/view/edit_profile.dart';
 import 'package:saymymeds/app/views/screens/settings/view/language_selection.dart';
 import 'package:saymymeds/app/views/screens/settings/view/setting_page.dart';
 import 'package:saymymeds/app/views/screens/splash/splash_screen.dart';
+import 'package:saymymeds/app/views/screens/view_details/medication_preview_model/medication_preview.dart';
 import 'package:saymymeds/app/views/screens/view_details/view_detils.dart';
 import 'package:saymymeds/app/views/screens/welcome/weal_come_screen.dart';
 
@@ -181,10 +182,19 @@ class AppRoutes {
           return VerifyCode(email: email);
         },
       ),
+
+      // GoRoute(
+      //   path: medicineDetailPage,
+      //   builder: (context, state) => const MedicineDetailPage(),
+      // ),
       GoRoute(
-        path: medicineDetailPage,
-        builder: (context, state) => const MedicineDetailPage(),
+        path: AppRoutes.medicineDetailPage,
+        builder: (context, state) {
+          final preview = state.extra as MedicationPreviewModel?;
+          return MedicineDetailPage(preview: preview);
+        },
       ),
+
       GoRoute(
         path: subscriptionCard,
         builder: (context, state) => const SubscriptionCard(),

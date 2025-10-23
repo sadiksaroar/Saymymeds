@@ -9,6 +9,7 @@ import 'package:saymymeds/app/views/screens/auth/verifiy_code.dart';
 
 import 'package:saymymeds/app/views/screens/home/views/home_view.dart';
 import 'package:saymymeds/app/views/screens/home/views/screens/SubscriptionCard/subscription_card.dart';
+import 'package:saymymeds/app/views/screens/medications/view/cheack_info.dart';
 import 'package:saymymeds/app/views/screens/medications/view/medication.dart';
 import 'package:saymymeds/app/views/screens/scan/image_scanner_screen.dart';
 import 'package:saymymeds/app/views/screens/settings/view/edit_profile.dart';
@@ -37,7 +38,7 @@ class AppRoutes {
   static const String settingPage = "/settingPage";
   static const String editProfile = "/editProfile";
   static const String languageSelection = "/languageSelection";
-
+  static const String checkInfoPage = "/checkInfoPage";
   static const String medication = "/medication";
   static const String imageScannerScreen = '/imageScannerScreen';
 
@@ -150,6 +151,17 @@ class AppRoutes {
       ),
 
       // sign up screen
+      // GoRoute(
+      //   path: AppRoutes.checkInfoPage,
+      //   builder: (context, state) => const CheckInfoPage(),
+      // ),
+      GoRoute(
+        path: '/checkInfoPage/:id',
+        builder: (context, state) => CheckInfoPage(
+          medicationId: int.parse(state.pathParameters['id'] ?? '0'),
+        ),
+      ),
+      // cheack info page
       GoRoute(
         path: signUp, //  sa
         builder: (context, state) => const SignUp(),
@@ -184,9 +196,16 @@ class AppRoutes {
       ),
 
       // GoRoute(
-      //   path: medicineDetailPage,
-      //   builder: (context, state) => const MedicineDetailPage(),
+      //   path: AppRoutes.medicineDetailPage,
+      //   builder: (context, state) {
+      //     final preview = state.extra as MedicationPreviewModel?;
+      //     return MedicineDetailPage(preview: preview);
+      //   },
       // ),
+      GoRoute(
+        path: AppRoutes.medication,
+        builder: (context, state) => const Medication(),
+      ),
       GoRoute(
         path: AppRoutes.medicineDetailPage,
         builder: (context, state) {
@@ -213,11 +232,11 @@ class AppRoutes {
         path: languageSelection,
         builder: (context, state) => LanguageSelection(),
       ),
-      GoRoute(
-        path: medication, //
-        builder: (context, state) => Medication(),
-      ),
 
+      // GoRoute(
+      //   path: medication, //
+      //   builder: (context, state) => Medication(),
+      // ),
       GoRoute(
         path: imageScannerScreen,
         builder: (context, state) => ImageScannerScreen(),

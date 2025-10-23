@@ -19,7 +19,7 @@
 //       t,
 //       style: const TextStyle(
 //         fontSize: 24,
-//         fontWeight: FontWeight.w600,
+//         fontWeight: FontWeight.w600,90
 //         color: Color(0xFF333333),
 //       ),
 //     ),

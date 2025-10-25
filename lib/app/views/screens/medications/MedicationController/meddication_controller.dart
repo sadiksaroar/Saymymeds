@@ -1,450 +1,410 @@
+// import 'package:audioplayers/audioplayers.dart';
 // import 'package:get/get.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:saymymeds/app/utlies/storage_helper.dart';
+// import 'dart:convert';
 // import 'package:saymymeds/app/views/screens/medications/data/model/medication_api_model.dart';
-// import 'package:saymymeds/app/views/screens/medications/data/services/medication_api_service.dart';
 
 // class MedicationController extends GetxController {
-//   var medications = <Results>[].obs;
-//   var filteredMedications = <Results>[].obs;
-//   var isLoading = true.obs;
-//   var errorMessage = ''.obs;
-//   var searchQuery = ''.obs;
+//   static const String baseUrl = 'http://10.10.7.24:8002/api/core';
+
+//   // Reactive variables
+//   final medications = <Results>[].obs;
+//   final isLoading = false.obs;
+//   final searchQuery = ''.obs;
+//   final selectedLanguage = 'en'.obs;
+//   final isPlaying = false.obs;
+//   final medicationId = 0.obs;
+//   final languageCode = 'en'.obs;
+//   final noteText = ''.obs;
+//   final errorMessage = ''.obs;
+
+//   late final AudioPlayer audioPlayer;
+//   String authToken = '';
 
 //   @override
 //   void onInit() {
 //     super.onInit();
+//     audioPlayer = AudioPlayer();
+//     _setupAudioListeners();
 //     fetchMedications();
+//   }
+
+//   void _setupAudioListeners() {
+//     audioPlayer.onPlayerStateChanged.listen((state) {
+//       isPlaying.value = state == PlayerState.playing;
+//     });
+
+//     audioPlayer.onPlayerComplete.listen((_) {
+//       isPlaying.value = false;
+//     });
+//   }
+
+//   @override
+//   void onClose() {
+//     audioPlayer.dispose();
+//     super.onClose();
+//   }
+
+//   void setAuthToken(String token) {
+//     authToken = token;
 //   }
 
 //   Future<void> fetchMedications() async {
 //     try {
-//       isLoading(true);
-//       errorMessage('');
-//       final response = await MedicationApiService.getMedications();
-//       medications.value = response.results ?? [];
-//       filteredMedications.value = response.results ?? [];
+//       isLoading.value = true;
+//       errorMessage.value = '';
+
+//       final token = await StorageHelper.getToken();
+//       if (token == null) {
+//         errorMessage.value = 'No authentication token found';
+//         print('❌ ${errorMessage.value}');
+//         return;
+//       }
+
+//       final response = await http
+//           .get(
+//             Uri.parse('$baseUrl/medications/?lang=${selectedLanguage.value}'),
+//             headers: {
+//               'Authorization': 'Bearer $token',
+//               'Content-Type': 'application/json',
+//             },
+//           )
+//           .timeout(
+//             const Duration(seconds: 10),
+//             onTimeout: () {
+//               throw Exception('Request timeout');
+//             },
+//           );
+
+//       if (response.statusCode == 200) {
+//         final data = json.decode(response.body);
+//         final model = MedicationApiModel.fromJson(data);
+//         medications.value =
+//             model.results?.where((e) => e.id != null).toList() ?? [];
+//         print('✅ Medications loaded: ${medications.length}');
+//       } else {
+//         throw Exception('Failed: ${response.statusCode}');
+//       }
 //     } catch (e) {
-//       errorMessage(e.toString());
+//       errorMessage.value = e.toString();
+//       print('⚠️ Error: $e');
+//       Get.snackbar('Error', 'Failed to load medications');
 //     } finally {
-//       isLoading(false);
+//       isLoading.value = false;
 //     }
 //   }
 
-//   void searchMedications(String query) {
-//     searchQuery(query);
-//     if (query.isEmpty) {
-//       filteredMedications.value = medications;
-//     } else {
-//       filteredMedications.value = medications.where((med) {
-//         return (med.brandName?.toLowerCase().contains(query.toLowerCase()) ??
-//                 false) ||
-//             (med.genericName?.toLowerCase().contains(query.toLowerCase()) ??
-//                 false);
-//       }).toList();
+//   Future<bool> deleteMedication(int medId) async {
+//     try {
+//       final token = await StorageHelper.getToken();
+//       if (token == null) {
+//         Get.snackbar('Error', 'No authentication token');
+//         return false;
+//       }
+
+//       final response = await http.delete(
+//         Uri.parse('$baseUrl/medications/$medId/'),
+//         headers: {'Authorization': 'Bearer $token'},
+//       );
+
+//       if (response.statusCode == 200 || response.statusCode == 204) {
+//         medications.removeWhere((med) => med.id == medId);
+//         Get.snackbar('Success', 'Medication deleted');
+//         print('✅ Medication deleted');
+//         return true;
+//       } else {
+//         throw Exception('Failed: ${response.statusCode}');
+//       }
+//     } catch (e) {
+//       print('⚠️ Error: $e');
+//       Get.snackbar('Error', 'Failed to delete medication');
+//       return false;
 //     }
 //   }
 
-//   void deleteMedication(int index) {
-//     medications.removeAt(index);
-//     searchMedications(searchQuery.value);
+//   String _buildAudioUrl() {
+//     return '$baseUrl/audio/medication/${medicationId.value}/?lang=${languageCode.value}';
+//   }
+
+//   Future<void> toggleAudio() async {
+//     try {
+//       if (isPlaying.value) {
+//         await audioPlayer.pause();
+//       } else {
+//         final audioUrl = _buildAudioUrl();
+//         // The audioplayers package does not support headers in UrlSource.
+//         await audioPlayer.play(UrlSource(audioUrl));
+//       }
+//     } catch (e) {
+//       Get.snackbar('Error', 'Audio playback failed');
+//       print('Error: $e');
+//     }
+//   }
+
+//   Future<void> stopAudio() async {
+//     try {
+//       await audioPlayer.stop();
+//       isPlaying.value = false;
+//     } catch (e) {
+//       print('Error stopping audio: $e');
+//     }
+//   }
+
+//   List<Results> get filteredMedications {
+//     if (searchQuery.value.isEmpty) return medications;
+//     final query = searchQuery.value.toLowerCase();
+//     return medications.where((med) {
+//       return (med.genericName?.toLowerCase().contains(query) ?? false) ||
+//           (med.brandName?.toLowerCase().contains(query) ?? false);
+//     }).toList();
+//   }
+
+//   Future<void> changeLanguage(String lang) async {
+//     selectedLanguage.value = lang;
+//     languageCode.value = lang;
+//     await fetchMedications();
+//   }
+
+//   void updateSearchQuery(String query) {
+//     searchQuery.value = query;
+//   }
+
+//   void setMedicationId(int id) {
+//     medicationId.value = id;
+//   }
+
+//   void updateNoteText(String note) {
+//     noteText.value = note;
 //   }
 // }
+//
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:saymymeds/app/utlies/storage_helper.dart' show StorageHelper;
+import 'package:saymymeds/app/utlies/storage_helper.dart';
 import 'dart:convert';
+import 'package:saymymeds/app/views/screens/medications/data/model/medication_api_model.dart';
 
 class MedicationController extends GetxController {
-  final medicines = <Results>[].obs;
-  final isLoading = false.obs;
-  final errorMessage = ''.obs;
-  final selectedLanguage = 'en'.obs;
-
   static const String baseUrl = 'http://10.10.7.24:8002/api/core';
+  static const String mediaBaseUrl =
+      'http://10.10.7.24:8002'; // ✅ Add media base URL
+
+  // Reactive variables
+  final medications = <Results>[].obs;
+  final isLoading = false.obs;
+  final searchQuery = ''.obs;
+  final selectedLanguage = 'en'.obs;
+  final isPlaying = false.obs;
+  final medicationId = 0.obs;
+  final languageCode = 'en'.obs;
+  final noteText = ''.obs;
+  final errorMessage = ''.obs;
+
+  late final AudioPlayer audioPlayer;
+  String authToken = '';
 
   @override
   void onInit() {
     super.onInit();
+    audioPlayer = AudioPlayer();
+    _setupAudioListeners();
     fetchMedications();
   }
 
+  void _setupAudioListeners() {
+    audioPlayer.onPlayerStateChanged.listen((state) {
+      isPlaying.value = state == PlayerState.playing;
+    });
+
+    audioPlayer.onPlayerComplete.listen((_) {
+      isPlaying.value = false;
+    });
+  }
+
+  @override
+  void onClose() {
+    audioPlayer.dispose();
+    super.onClose();
+  }
+
+  void setAuthToken(String token) {
+    authToken = token;
+  }
+
+  /// ✅ Build proper image URL from relative path
+  String _buildImageUrl(String? imagePath) {
+    if (imagePath == null || imagePath.isEmpty) {
+      return '';
+    }
+
+    final trimmedPath = imagePath.trim();
+
+    // If already a complete URL, return as is
+    if (trimmedPath.startsWith('http://') ||
+        trimmedPath.startsWith('https://')) {
+      return trimmedPath;
+    }
+
+    // Remove leading slash if exists
+    final cleanPath = trimmedPath.startsWith('/')
+        ? trimmedPath.substring(1)
+        : trimmedPath;
+
+    // Combine with media base URL (not API base URL)
+    return '$mediaBaseUrl/$cleanPath';
+  }
+
+  /// ✅ Fetch Medications from API
   Future<void> fetchMedications() async {
     try {
-      isLoading(true);
-      errorMessage('');
+      isLoading.value = true;
+      errorMessage.value = '';
 
       final token = await StorageHelper.getToken();
       if (token == null) {
-        errorMessage('Authentication token not found');
+        errorMessage.value = 'No authentication token found';
+        print('❌ ${errorMessage.value}');
         return;
       }
 
-      final headers = {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      };
-
-      final response = await http.get(
-        Uri.parse('$baseUrl/medications/?lang=${selectedLanguage.value}'),
-        headers: headers,
-      );
+      final response = await http
+          .get(
+            Uri.parse('$baseUrl/medications/?lang=${selectedLanguage.value}'),
+            headers: {
+              'Authorization': 'Bearer $token',
+              'Content-Type': 'application/json',
+            },
+          )
+          .timeout(
+            const Duration(seconds: 10),
+            onTimeout: () {
+              throw Exception('Request timeout');
+            },
+          );
 
       if (response.statusCode == 200) {
-        final data = MedicationApiModel.fromJson(jsonDecode(response.body));
-        medicines.assignAll(data.results ?? []);
+        final data = json.decode(response.body);
+        final model = MedicationApiModel.fromJson(data);
+        final results =
+            model.results?.where((e) => e.id != null).toList() ?? [];
+
+        // ✅ Fix relative image URL → absolute full path
+        for (var med in results) {
+          if (med.originalImage != null && med.originalImage!.isNotEmpty) {
+            med.originalImage = _buildImageUrl(med.originalImage);
+          } else {
+            med.originalImage = null;
+          }
+        }
+
+        medications.value = results;
+        print('✅ Medications loaded: ${medications.length}');
+
+        // Debug: print first medication's image URL
+        if (medications.isNotEmpty) {
+          print('🖼️ First med image URL: ${medications[0].originalImage}');
+        }
       } else {
-        errorMessage('Failed to load medications: ${response.statusCode}');
+        throw Exception('Failed: ${response.statusCode}');
       }
     } catch (e) {
-      errorMessage('Error: $e');
-      print('Error fetching medications: $e');
+      errorMessage.value = e.toString();
+      print('⚠️ Error: $e');
+      Get.snackbar('Error', 'Failed to load medications');
     } finally {
-      isLoading(false);
+      isLoading.value = false;
     }
   }
 
-  Future<CheckInfoPageApiModel?> getMedicationDetails(int medicationId) async {
+  /// ✅ Delete medication
+  Future<bool> deleteMedication(int medId) async {
     try {
       final token = await StorageHelper.getToken();
-      if (token == null) return null;
-
-      final headers = {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      };
-
-      final response = await http.get(
-        Uri.parse(
-          '$baseUrl/medications/$medicationId/?lang=${selectedLanguage.value}',
-        ),
-        headers: headers,
-      );
-
-      if (response.statusCode == 200) {
-        return CheckInfoPageApiModel.fromJson(jsonDecode(response.body));
+      if (token == null) {
+        Get.snackbar('Error', 'No authentication token');
+        return false;
       }
-      return null;
-    } catch (e) {
-      print('Error fetching medication details: $e');
-      return null;
-    }
-  }
-
-  Future<void> deleteMedication(int medicationId) async {
-    try {
-      final token = await StorageHelper.getToken();
-      if (token == null) return;
-
-      final headers = {'Authorization': 'Bearer $token'};
 
       final response = await http.delete(
-        Uri.parse('$baseUrl/medications/$medicationId/'),
-        headers: headers,
+        Uri.parse('$baseUrl/medications/$medId/'),
+        headers: {'Authorization': 'Bearer $token'},
       );
 
-      if (response.statusCode == 204 || response.statusCode == 200) {
-        medicines.removeWhere((med) => med.id == medicationId);
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        medications.removeWhere((med) => med.id == medId);
         Get.snackbar('Success', 'Medication deleted');
+        print('✅ Medication deleted');
+        return true;
       } else {
-        Get.snackbar('Error', 'Failed to delete medication');
+        throw Exception('Failed: ${response.statusCode}');
       }
     } catch (e) {
-      Get.snackbar('Error', 'Error deleting medication: $e');
+      print('⚠️ Error: $e');
+      Get.snackbar('Error', 'Failed to delete medication');
+      return false;
     }
   }
 
-  void changeLanguage(String lang) {
-    selectedLanguage(lang);
-    fetchMedications();
+  /// ✅ Build Audio URL
+  String _buildAudioUrl() {
+    return '$baseUrl/audio/medication/${medicationId.value}/?lang=${languageCode.value}';
   }
-}
 
-// Data Models
-class MedicationApiModel {
-  List<Results>? results;
-  String? language;
-
-  MedicationApiModel({this.results, this.language});
-
-  factory MedicationApiModel.fromJson(Map<String, dynamic> json) {
-    return MedicationApiModel(
-      results: json['results'] != null
-          ? List<Results>.from(json['results'].map((x) => Results.fromJson(x)))
-          : [],
-      language: json['language'],
-    );
+  /// ✅ Toggle Audio Play/Pause
+  Future<void> toggleAudio() async {
+    try {
+      if (isPlaying.value) {
+        await audioPlayer.pause();
+      } else {
+        final audioUrl = _buildAudioUrl();
+        await audioPlayer.play(UrlSource(audioUrl));
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Audio playback failed');
+      print('Error: $e');
+    }
   }
-}
 
-class Results {
-  int? id;
-  String? originalImage;
-  String? genericName;
-  String? brandName;
-  String? manufacturer;
-  String? drugClass;
-  String? uses;
-  String? totPills;
-  DosageInformation? dosageInformation;
-  String? howToTake;
-  SideEffects? sideEffects;
-  String? warnings;
-  String? storageInstructions;
-  String? interactions;
-  String? aiAdditionalNotes;
-  bool? isActive;
-  String? createdAt;
-  String? updatedAt;
-  List<AdditionalNotes>? additionalNotes;
-
-  Results({
-    this.id,
-    this.originalImage,
-    this.genericName,
-    this.brandName,
-    this.manufacturer,
-    this.drugClass,
-    this.uses,
-    this.totPills,
-    this.dosageInformation,
-    this.howToTake,
-    this.sideEffects,
-    this.warnings,
-    this.storageInstructions,
-    this.interactions,
-    this.aiAdditionalNotes,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
-    this.additionalNotes,
-  });
-
-  factory Results.fromJson(Map<String, dynamic> json) {
-    return Results(
-      id: json['id'],
-      originalImage: json['original_image'],
-      genericName: json['generic_name'],
-      brandName: json['brand_name'],
-      manufacturer: json['manufacturer'],
-      drugClass: json['drug_class'],
-      uses: json['uses'],
-      totPills: json['tot_pills'],
-      dosageInformation: json['dosage_information'] != null
-          ? DosageInformation.fromJson(json['dosage_information'])
-          : null,
-      howToTake: json['how_to_take'],
-      sideEffects: json['side_effects'] != null
-          ? SideEffects.fromJson(json['side_effects'])
-          : null,
-      warnings: json['warnings'],
-      storageInstructions: json['storage_instructions'],
-      interactions: json['interactions'],
-      aiAdditionalNotes: json['ai_additional_notes'],
-      isActive: json['is_active'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-      additionalNotes: json['additional_notes'] != null
-          ? List<AdditionalNotes>.from(
-              json['additional_notes'].map((x) => AdditionalNotes.fromJson(x)),
-            )
-          : [],
-    );
+  /// ✅ Stop Audio
+  Future<void> stopAudio() async {
+    try {
+      await audioPlayer.stop();
+      isPlaying.value = false;
+    } catch (e) {
+      print('Error stopping audio: $e');
+    }
   }
-}
 
-class DosageInformation {
-  String? adultsDosage;
-  String? childrenDosage;
-  String? elderlyDosage;
-
-  DosageInformation({
-    this.adultsDosage,
-    this.childrenDosage,
-    this.elderlyDosage,
-  });
-
-  factory DosageInformation.fromJson(Map<String, dynamic> json) {
-    return DosageInformation(
-      adultsDosage: json['adults_dosage'],
-      childrenDosage: json['children_dosage'],
-      elderlyDosage: json['elderly_dosage'],
-    );
+  /// ✅ Filtered medications by search
+  List<Results> get filteredMedications {
+    if (searchQuery.value.isEmpty) return medications;
+    final query = searchQuery.value.toLowerCase();
+    return medications.where((med) {
+      return (med.genericName?.toLowerCase().contains(query) ?? false) ||
+          (med.brandName?.toLowerCase().contains(query) ?? false);
+    }).toList();
   }
-}
 
-class SideEffects {
-  String? common;
-  String? serious;
-
-  SideEffects({this.common, this.serious});
-
-  factory SideEffects.fromJson(Map<String, dynamic> json) {
-    return SideEffects(common: json['common'], serious: json['serious']);
+  /// ✅ Change language and refetch data
+  Future<void> changeLanguage(String lang) async {
+    selectedLanguage.value = lang;
+    languageCode.value = lang;
+    await fetchMedications();
   }
-}
 
-class AdditionalNotes {
-  int? id;
-  int? medication;
-  int? user;
-  String? note;
-  bool? isActive;
-  String? createdAt;
-  String? updatedAt;
-
-  AdditionalNotes({
-    this.id,
-    this.medication,
-    this.user,
-    this.note,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  factory AdditionalNotes.fromJson(Map<String, dynamic> json) {
-    return AdditionalNotes(
-      id: json['id'],
-      medication: json['medication'],
-      user: json['user'],
-      note: json['note'],
-      isActive: json['is_active'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-    );
+  /// ✅ Simple setters
+  void updateSearchQuery(String query) {
+    searchQuery.value = query;
   }
-}
 
-class CheckInfoPageApiModel {
-  int? id;
-  String? originalImage;
-  String? genericName;
-  String? brandName;
-  String? manufacturer;
-  String? drugClass;
-  String? uses;
-  String? totPills;
-  DosageInformation? dosageInformation;
-  String? howToTake;
-  SideEffects? sideEffects;
-  String? warnings;
-  String? storageInstructions;
-  String? interactions;
-  String? aiAdditionalNotes;
-  bool? isActive;
-  String? createdAt;
-  String? updatedAt;
-  List<AdditionalNotes>? additionalNotes;
-  String? language;
-  AudioUrls? audioUrls;
-  String? audioDirectUrl;
-  AudioInstructions? audioInstructions;
-
-  CheckInfoPageApiModel({
-    this.id,
-    this.originalImage,
-    this.genericName,
-    this.brandName,
-    this.manufacturer,
-    this.drugClass,
-    this.uses,
-    this.totPills,
-    this.dosageInformation,
-    this.howToTake,
-    this.sideEffects,
-    this.warnings,
-    this.storageInstructions,
-    this.interactions,
-    this.aiAdditionalNotes,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
-    this.additionalNotes,
-    this.language,
-    this.audioUrls,
-    this.audioDirectUrl,
-    this.audioInstructions,
-  });
-
-  factory CheckInfoPageApiModel.fromJson(Map<String, dynamic> json) {
-    return CheckInfoPageApiModel(
-      id: json['id'],
-      originalImage: json['original_image'],
-      genericName: json['generic_name'],
-      brandName: json['brand_name'],
-      manufacturer: json['manufacturer'],
-      drugClass: json['drug_class'],
-      uses: json['uses'],
-      totPills: json['tot_pills'],
-      dosageInformation: json['dosage_information'] != null
-          ? DosageInformation.fromJson(json['dosage_information'])
-          : null,
-      howToTake: json['how_to_take'],
-      sideEffects: json['side_effects'] != null
-          ? SideEffects.fromJson(json['side_effects'])
-          : null,
-      warnings: json['warnings'],
-      storageInstructions: json['storage_instructions'],
-      interactions: json['interactions'],
-      aiAdditionalNotes: json['ai_additional_notes'],
-      isActive: json['is_active'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-      additionalNotes: json['additional_notes'] != null
-          ? List<AdditionalNotes>.from(
-              json['additional_notes'].map((x) => AdditionalNotes.fromJson(x)),
-            )
-          : [],
-      language: json['language'],
-      audioUrls: json['audio_urls'] != null
-          ? AudioUrls.fromJson(json['audio_urls'])
-          : null,
-      audioDirectUrl: json['audio_direct_url'],
-      audioInstructions: json['audio_instructions'] != null
-          ? AudioInstructions.fromJson(json['audio_instructions'])
-          : null,
-    );
+  void setMedicationId(int id) {
+    medicationId.value = id;
   }
-}
 
-class AudioUrls {
-  String? en;
-  String? es;
-  String? fr;
-  String? pt;
-  String? ht;
-  String? zhCN;
-  String? ru;
-
-  AudioUrls({this.en, this.es, this.fr, this.pt, this.ht, this.zhCN, this.ru});
-
-  factory AudioUrls.fromJson(Map<String, dynamic> json) {
-    return AudioUrls(
-      en: json['en'],
-      es: json['es'],
-      fr: json['fr'],
-      pt: json['pt'],
-      ht: json['ht'],
-      zhCN: json['zh-CN'],
-      ru: json['ru'],
-    );
-  }
-}
-
-class AudioInstructions {
-  String? description;
-  List<String>? languages;
-  String? example;
-
-  AudioInstructions({this.description, this.languages, this.example});
-
-  factory AudioInstructions.fromJson(Map<String, dynamic> json) {
-    return AudioInstructions(
-      description: json['description'],
-      languages: json['languages'] != null
-          ? List<String>.from(json['languages'])
-          : [],
-      example: json['example'],
-    );
+  void updateNoteText(String note) {
+    noteText.value = note;
   }
 }

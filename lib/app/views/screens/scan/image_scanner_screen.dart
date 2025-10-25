@@ -373,7 +373,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
-import 'package:saymymeds/app/views/screens/view_details/MedicineApiService/medicineApiService_c.dart';
+import 'package:saymymeds/app/views/screens/view_details/medicaton_controlr/medication_controller.dart';
 import 'package:saymymeds/app/widgets/BottomNav.dart';
 
 class ImageScannerScreen extends StatefulWidget {

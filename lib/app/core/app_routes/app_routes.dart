@@ -133,7 +133,7 @@ class AppRoutes {
           ); // Safely parse to int
         },
       ),
-      //end ekane
+      // end ekane
       GoRoute(
         path: medicineDetailPage,
         builder: (context, state) {

@@ -20,7 +20,7 @@ class _CheckInfoPageState extends State<CheckInfoPage> {
   final TextEditingController noteController = TextEditingController();
 
   String selectedLang = 'English';
-  int _currentIndex = 2;
+  int _currentIndex = 0;
 
   @override
   void initState() {

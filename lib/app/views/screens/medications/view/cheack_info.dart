@@ -193,7 +193,7 @@ class _CheckInfoPageState extends State<CheckInfoPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Image area
+                                  // ✅ Image area with processed URL
                                   SizedBox(
                                     width: 360,
                                     height: 180,
@@ -207,22 +207,59 @@ class _CheckInfoPageState extends State<CheckInfoPage> {
                                           color: const Color(0xFFF8F9FB),
                                         ),
                                         child: Center(
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              12,
-                                            ),
-                                            child: Image.network(
-                                              details.originalImage,
-                                              width: 160,
-                                              height: 170,
-                                              fit: BoxFit.contain,
-                                              errorBuilder: (_, __, ___) =>
-                                                  const Icon(
+                                          child: Obx(() {
+                                            final imageUrl = controller
+                                                .processedImageUrl
+                                                .value;
+
+                                            if (imageUrl.isEmpty) {
+                                              return const Icon(
+                                                Icons.medication_outlined,
+                                                size: 72,
+                                                color: Colors.grey,
+                                              );
+                                            }
+
+                                            return ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: Image.network(
+                                                imageUrl,
+                                                width: 160,
+                                                height: 170,
+                                                fit: BoxFit.contain,
+                                                loadingBuilder:
+                                                    (
+                                                      _,
+                                                      child,
+                                                      loadingProgress,
+                                                    ) {
+                                                      if (loadingProgress ==
+                                                          null)
+                                                        return child;
+                                                      return Container(
+                                                        width: 160,
+                                                        height: 170,
+                                                        color: Colors.grey[200],
+                                                        child: const Center(
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        ),
+                                                      );
+                                                    },
+                                                errorBuilder: (_, __, ___) {
+                                                  print(
+                                                    '❌ Image load failed: $imageUrl',
+                                                  );
+                                                  return const Icon(
                                                     Icons.medication_outlined,
                                                     size: 72,
-                                                  ),
-                                            ),
-                                          ),
+                                                    color: Colors.grey,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          }),
                                         ),
                                       ),
                                     ),

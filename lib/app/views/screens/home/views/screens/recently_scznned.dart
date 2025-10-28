@@ -273,7 +273,7 @@ class RecentlyScznned extends StatelessWidget {
                     medicines[index]; // Access the current medicine from the list
                 return SizedBox(
                   width: double.infinity,
-                  height: 190,
+                  height: 180,
                   child: Card(
                     color: Colors.white,
                     margin: const EdgeInsets.symmetric(vertical: 8),
@@ -291,8 +291,8 @@ class RecentlyScznned extends StatelessWidget {
                         children: [
                           // ✅ Network Image
                           Container(
-                            width: 138,
-                            height: 160,
+                            width: 128,
+                            height: 120,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: Colors.grey[200],
@@ -328,7 +328,7 @@ class RecentlyScznned extends StatelessWidget {
                                     style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 20,
+                                      fontSize: 16,
                                       height: 1.2,
                                       color: Colors.black,
                                     ),
@@ -384,7 +384,7 @@ class RecentlyScznned extends StatelessWidget {
                                         style: TextStyle(
                                           fontFamily: 'Open Sans',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 14.0,
+                                          fontSize: 12.0,
                                           color: Color(0xFF4F85AA),
                                           decoration: TextDecoration.underline,
                                         ),

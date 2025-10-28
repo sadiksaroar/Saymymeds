@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart'; // ✅ GetX import
+import 'package:get/get.dart';
 import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 
 // // void main() => runApp(
@@ -47,11 +47,18 @@ import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:get/get.dart';
 import 'package:saymymeds/app/views/multi_langus/app_transle.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  runApp(const MyApp());
-}
+void main() => runApp(
+  DevicePreview(
+    enabled: !kReleaseMode,
+    builder: (context) => const MyApp(), // Wrap your app
+  ),
+);
+
+// void main() {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

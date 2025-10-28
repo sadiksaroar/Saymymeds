@@ -238,7 +238,7 @@ class _CheckInfoPageState extends State<CheckInfoPage> {
                                                           null)
                                                         return child;
                                                       return Container(
-                                                        width: 160,
+                                                        width: 145,
                                                         height: 170,
                                                         color: Colors.grey[200],
                                                         child: const Center(

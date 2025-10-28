@@ -462,21 +462,22 @@ class _MedicationState extends State<Medication> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: AppColors.whiteBackground,
-          title: const Text('Delete Medication'),
-          content: Text('Are you sure you want to delete $medicationName?'),
+          title: Text('deleteMedication'.tr), // ✅ Changed
+          content: Text('areYouSureDelete'.tr), // ✅ Changed
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context), // Close dialog
-              child: const Text('Cancel'),
+              onPressed: () => Navigator.pop(context),
+              child: Text('cancel'.tr), // ✅ Changed
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close dialog
-                controller.deleteMedication(
-                  medicationId,
-                ); // Call delete function
+                Navigator.pop(context);
+                controller.deleteMedication(medicationId);
               },
-              child: const Text('Delete', style: TextStyle(color: Colors.red)),
+              child: Text(
+                'delete'.tr,
+                style: TextStyle(color: Colors.red),
+              ), // ✅ Changed
             ),
           ],
         );
@@ -510,11 +511,11 @@ class _MedicationState extends State<Medication> {
                 ),
               ],
             ),
-            child: const Center(
+            child: Center(
               child: Text(
-                "Medications",
+                'medications'.tr, // ✅ Changed
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "Poppins",
                   fontWeight: FontWeight.w600,
                   fontSize: 30,
@@ -562,7 +563,7 @@ class _MedicationState extends State<Medication> {
               child: TextField(
                 onChanged: (value) => controller.searchQuery.value = value,
                 decoration: InputDecoration(
-                  hintText: "Search Medications",
+                  hintText: 'searchMedications'.tr, // ✅ Changed
                   suffixIcon: const Icon(Icons.search),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   border: OutlineInputBorder(
@@ -584,10 +585,10 @@ class _MedicationState extends State<Medication> {
               final medications = controller.filteredMedications;
 
               if (medications.isEmpty) {
-                return const Center(
+                return Center(
                   child: Text(
-                    'No medications found',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    'noMedicationsFound'.tr, // ✅ Changed
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                 );
               }
@@ -667,7 +668,8 @@ class _MedicationState extends State<Medication> {
                                             Expanded(
                                               child: Text(
                                                 medicine.genericName ??
-                                                    'Unknown',
+                                                    'unknownMedication'
+                                                        .tr, // ✅ Changed
                                                 style: const TextStyle(
                                                   fontFamily: 'Poppins',
                                                   fontWeight: FontWeight.w600,
@@ -721,9 +723,10 @@ class _MedicationState extends State<Medication> {
                                               fontFamily: 'Poppins',
                                             ),
                                             children: [
-                                              const TextSpan(
-                                                text: "Brand Name: ",
-                                                style: TextStyle(
+                                              TextSpan(
+                                                text:
+                                                    "${'brandName'.tr}: ", // ✅ Changed
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -760,12 +763,12 @@ class _MedicationState extends State<Medication> {
                                                 width: 1,
                                               ),
                                             ),
-                                            child: const Text(
-                                              "Check info",
-                                              style: TextStyle(
+                                            child: Text(
+                                              'checkInfo'.tr, // ✅ Changed
+                                              style: const TextStyle(
                                                 fontFamily: 'Open Sans',
                                                 fontWeight: FontWeight.w400,
-                                                fontSize: 16.0,
+                                                fontSize: 8.0,
                                                 height: 1.0,
                                                 letterSpacing: 0.0,
                                                 color: Color(0xFF4F85AA),

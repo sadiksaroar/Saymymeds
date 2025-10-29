@@ -1106,6 +1106,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
                     const SizedBox(width: 8),
 
                     // Center: Language Dropdown
+                    /*
                     Expanded(
                       child: Container(
                         height: 40,
@@ -1160,7 +1161,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
                         ),
                       ),
                     ),
-
+*/
                     const SizedBox(width: 8),
 
                     // Right: Subscription Icon

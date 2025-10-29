@@ -66,6 +66,33 @@ class AppTranslations extends Translations {
       "chinese": "Chinese",
       "russian": "Russian",
       // end setting page
+
+      // recently screen can be added here
+      "noMedicationsFound": "No medications found",
+      "genericName": "Generic Name",
+      "viewDetails": "View details",
+      "seeAll": "See All",
+
+      // end recently screen
+      'generic_name': 'Generic Name',
+      'brand_name': 'Brand Name',
+      'manufacturer': 'Manufacturer',
+      'drug_class': 'Drug Class',
+      'uses': 'Uses',
+      'dosage_information': 'Dosage Information',
+      'adults': 'Adults',
+      'children': 'Children',
+      'elderly': 'Elderly',
+      'how_to_take': 'How to Take',
+      'side_effects': 'Side Effects',
+      'common': 'Common',
+      'serious': 'Serious',
+      'warnings': 'Warnings',
+      'storage_instructions': 'Storage Instructions',
+      'interactions': 'Interactions',
+      'add_notes': 'Add notes',
+      'save_note': 'Save Note',
+      'play': 'Play',
     },
 
     'es': {
@@ -128,6 +155,32 @@ class AppTranslations extends Translations {
       "russian": "Ruso",
 
       // end setting page
+
+      // recently screen can be added here
+      "noMedicationsFound": "No se encontraron medicamentos",
+      "genericName": "Nombre genérico",
+      "viewDetails": "Ver detalles",
+      "seeAll": "Ver todo",
+      // end recently screen
+      'generic_name': 'Nombre Genérico',
+      'brand_name': 'Nombre de Marca',
+      'manufacturer': 'Fabricante',
+      'drug_class': 'Clase de Droga',
+      'uses': 'Usos',
+      'dosage_information': 'Información de Dosificación',
+      'adults': 'Adultos',
+      'children': 'Niños',
+      'elderly': 'Ancianos',
+      'how_to_take': 'Cómo Tomar',
+      'side_effects': 'Efectos Secundarios',
+      'common': 'Común',
+      'serious': 'Serio',
+      'warnings': 'Advertencias',
+      'storage_instructions': 'Instrucciones de Almacenamiento',
+      'interactions': 'Interacciones',
+      'add_notes': 'Agregar Notas',
+      'save_note': 'Guardar Nota',
+      'play': 'Reproducir',
     },
     'fr': {
       "hello": "Bonjour",
@@ -185,6 +238,32 @@ class AppTranslations extends Translations {
       "russian": "Russe",
 
       // end setting page
+
+      // recently screen can be added here
+      "noMedicationsFound": "Aucun médicament trouvé",
+      "genericName": "Nom générique",
+      "viewDetails": "Voir les détails",
+      "seeAll": "Voir tout",
+      // end recently screen
+      'generic_name': 'Nom Générique',
+      'brand_name': 'Nom de Marque',
+      'manufacturer': 'Fabricant',
+      'drug_class': 'Classe de Médicament',
+      'uses': 'Utilisations',
+      'dosage_information': 'Informations sur la Posologie',
+      'adults': 'Adultes',
+      'children': 'Enfants',
+      'elderly': 'Personnes Âgées',
+      'how_to_take': 'Comment Prendre',
+      'side_effects': 'Effets Secondaires',
+      'common': 'Commun',
+      'serious': 'Grave',
+      'warnings': 'Avertissements',
+      'storage_instructions': 'Instructions de Stockage',
+      'interactions': 'Interactions',
+      'add_notes': 'Ajouter des Notes',
+      'save_note': 'Enregistrer la Note',
+      'play': 'Jouer',
     },
     'pt': {
       "hello": "Olá",
@@ -244,6 +323,33 @@ class AppTranslations extends Translations {
       "chinese": "Chinês",
       "russian": "Russo",
       // end setting page
+
+      // recently screen can be added here
+      "noMedicationsFound": "Nenhum medicamento encontrado",
+      "genericName": "Nome genérico",
+      "viewDetails": "Ver detalhes",
+      "seeAll": "Ver tudo",
+
+      // end recently screen
+      'generic_name': 'Nome Genérico',
+      'brand_name': 'Nome da Marca',
+      'manufacturer': 'Fabricante',
+      'drug_class': 'Classe de Droga',
+      'uses': 'Usos',
+      'dosage_information': 'Informação de Dosagem',
+      'adults': 'Adultos',
+      'children': 'Crianças',
+      'elderly': 'Idosos',
+      'how_to_take': 'Como Tomar',
+      'side_effects': 'Efeitos Colaterais',
+      'common': 'Comum',
+      'serious': 'Sério',
+      'warnings': 'Avisos',
+      'storage_instructions': 'Instruções de Armazenamento',
+      'interactions': 'Interações',
+      'add_notes': 'Adicionar Notas',
+      'save_note': 'Salvar Nota',
+      'play': 'Tocar',
     },
     'ht': {
       "hello": "Bonjou",
@@ -303,6 +409,32 @@ class AppTranslations extends Translations {
       "chinese": "Chinwa",
       "russian": "Ris",
       // end setting page
+
+      // recently screen can be added here
+      "noMedicationsFound": "Pa gen medikaman jwenn",
+      "genericName": "Non jeneral",
+      "viewDetails": "Gade detay",
+      "seeAll": "Gade tout",
+      // end recently screen
+      'generic_name': 'Non Jenerik',
+      'brand_name': 'Non Mak',
+      'manufacturer': 'Manifakti',
+      'drug_class': 'Klas Dwòg',
+      'uses': 'Itilizasyon',
+      'dosage_information': 'Enfòmasyon sou Dozaj',
+      'adults': 'Granmoun',
+      'children': 'Timoun',
+      'elderly': 'Granmoun Aje',
+      'how_to_take': 'Kijan pou Pran',
+      'side_effects': 'Efè Segondè',
+      'common': 'Komen',
+      'serious': 'Grav',
+      'warnings': 'Avètisman',
+      'storage_instructions': 'Enstriksyon pou Estoke',
+      'interactions': 'Entèraksyon',
+      'add_notes': 'Ajoute Nòt',
+      'save_note': 'Anrejistre Nòt',
+      'play': 'Jwe',
     },
 
     'ru': {
@@ -362,6 +494,32 @@ class AppTranslations extends Translations {
       "chinese": "Китайский",
       "russian": "Русский",
       // end setting page
+
+      // recently screen can be added here
+      "noMedicationsFound": "Медикаменты не найдены",
+      "genericName": "Общее название",
+      "viewDetails": "Посмотреть детали",
+      "seeAll": "Посмотреть все",
+      // end recently screen
+      'generic_name': 'Общее Название',
+      'brand_name': 'Торговая Марка',
+      'manufacturer': 'Производитель',
+      'drug_class': 'Класс Препарата',
+      'uses': 'Применение',
+      'dosage_information': 'Информация о Дозировке',
+      'adults': 'Взрослые',
+      'children': 'Дети',
+      'elderly': 'Пожилые',
+      'how_to_take': 'Как Принимать',
+      'side_effects': 'Побочные Эффекты',
+      'common': 'Обычные',
+      'serious': 'Серьёзные',
+      'warnings': 'Предупреждения',
+      'storage_instructions': 'Инструкции по Хранению',
+      'interactions': 'Взаимодействия',
+      'add_notes': 'Добавить Заметки',
+      'save_note': 'Сохранить Заметку',
+      'play': 'Воспроизвести',
     },
     'cn': {
       "hello": "你好",
@@ -419,6 +577,34 @@ class AppTranslations extends Translations {
       "chinese": "中文",
       "russian": "俄语",
       // end setting page
+
+      // recently screen can be added here
+      // ignore: equal_keys_in_map
+      "noMedicationsFound": "未找到药物",
+      "genericName": "通用名称",
+      "viewDetails": "查看详情",
+      "seeAll": "查看全部",
+
+      // end recently screen
+      'generic_name': '通用名称',
+      'brand_name': '品牌名称',
+      'manufacturer': '制造商',
+      'drug_class': '药物类别',
+      'uses': '用途',
+      'dosage_information': '剂量信息',
+      'adults': '成人',
+      'children': '儿童',
+      'elderly': '老年人',
+      'how_to_take': '如何服用',
+      'side_effects': '副作用',
+      'common': '常见',
+      'serious': '严重',
+      'warnings': '警告',
+      'storage_instructions': '存储说明',
+      'interactions': '相互作用',
+      'add_notes': '添加备注',
+      'save_note': '保存备注',
+      'play': '播放',
     },
   };
 }

@@ -410,13 +410,14 @@ class MedicationController extends GetxController {
   }
 }
 */
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:saymymeds/app/core/consants/api_constants.dart';
 import 'package:saymymeds/app/utlies/storage_helper.dart';
 import 'dart:convert';
-import 'package:saymymeds/app/views/screens/medications/data/model/medication_api_model.dart';
+import 'package:saymymeds/app/views/screens/medications/controler/model/medication_api_model.dart';
 
 class MedicationController extends GetxController {
   static const String baseUrl = ApiConstants.baseUrl + '/api/core';

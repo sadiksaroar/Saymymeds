@@ -414,11 +414,12 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
-import 'package:saymymeds/app/views/screens/medications/MedicationController/meddication_controller.dart';
+import 'package:saymymeds/app/views/screens/medications/controler/MedicationController/meddication_controller.dart';
 import 'package:saymymeds/app/widgets/BottomNav.dart';
 
 class Medication extends StatefulWidget {
@@ -763,13 +764,25 @@ class _MedicationState extends State<Medication> {
                                                 width: 1,
                                               ),
                                             ),
+                                            // child: Text(
+                                            //   'checkInfo'.tr, // ✅ Changed
+                                            //   style: const TextStyle(
+                                            //     fontFamily: 'Open Sans',
+                                            //     fontWeight: FontWeight.w400,
+                                            //     fontSize: 18.0,
+                                            //     height: 1.0,
+                                            //     letterSpacing: 0.0,
+                                            //     color: Color(0xFF4F85AA),
+                                            //   ),
+                                            // ),
                                             child: Text(
                                               'checkInfo'.tr, // ✅ Changed
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontFamily: 'Open Sans',
                                                 fontWeight: FontWeight.w400,
-                                                fontSize: 8.0,
-                                                height: 1.0,
+                                                fontSize: 10.0,
+
+                                                height: 0,
                                                 letterSpacing: 0.0,
                                                 color: Color(0xFF4F85AA),
                                               ),

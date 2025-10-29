@@ -462,11 +462,11 @@ class _SettingPageState extends State<SettingPage> {
                   'editProfile'.tr,
                   () => context.push(AppRoutes.editProfile),
                 ),
-                buildSettingsTile(
-                  Icons.language,
-                  'languageSelection'.tr,
-                  () => context.push(AppRoutes.languageSelection),
-                ),
+                // buildSettingsTile(
+                //   Icons.language,
+                //   'languageSelection'.tr,
+                //   () => context.push(AppRoutes.languageSelection),
+                // ),
                 buildSettingsTile(
                   Icons.info_outline,
                   'aboutUs'.tr,

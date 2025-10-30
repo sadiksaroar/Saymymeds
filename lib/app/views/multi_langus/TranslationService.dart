@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
-    'en_US': {
+    // ✅ ENGLISH
+    'en': {
       'no_medication_data': 'No medication data available',
       'pause': 'Pause',
       'play': 'Play',
@@ -23,12 +24,14 @@ class AppTranslations extends Translations {
       'warnings': 'Warnings',
       'storage_instructions': 'Storage Instructions',
       'interactions': 'Interactions',
-      'add_notes': 'Add Notes',
-      'save_note': 'Save Note',
-      'back': 'Back',
+      'add_notes': 'Add notes',
+      'save_note': 'Save',
       'pills': 'Pills',
+      'back': 'Back',
     },
-    'es_ES': {
+
+    // ✅ SPANISH
+    'es': {
       'no_medication_data': 'No hay datos de medicamentos disponibles',
       'pause': 'Pausar',
       'play': 'Reproducir',
@@ -49,11 +52,13 @@ class AppTranslations extends Translations {
       'storage_instructions': 'Instrucciones de Almacenamiento',
       'interactions': 'Interacciones',
       'add_notes': 'Agregar Notas',
-      'save_note': 'Guardar Nota',
-      'back': 'Atrás',
+      'save_note': 'Guardar',
       'pills': 'Píldoras',
+      'back': 'Atrás',
     },
-    'fr_FR': {
+
+    // ✅ FRENCH
+    'fr': {
       'no_medication_data': 'Aucune donnée de médicament disponible',
       'pause': 'Pause',
       'play': 'Jouer',
@@ -74,11 +79,13 @@ class AppTranslations extends Translations {
       'storage_instructions': 'Instructions de Stockage',
       'interactions': 'Interactions',
       'add_notes': 'Ajouter des Notes',
-      'save_note': 'Enregistrer la Note',
-      'back': 'Retour',
+      'save_note': 'Enregistrer',
       'pills': 'Comprimés',
+      'back': 'Retour',
     },
-    'pt_PT': {
+
+    // ✅ PORTUGUESE
+    'pt': {
       'no_medication_data': 'Nenhum dado de medicamento disponível',
       'pause': 'Pausa',
       'play': 'Tocar',
@@ -99,11 +106,13 @@ class AppTranslations extends Translations {
       'storage_instructions': 'Instruções de Armazenamento',
       'interactions': 'Interações',
       'add_notes': 'Adicionar Notas',
-      'save_note': 'Salvar Nota',
-      'back': 'Voltar',
+      'save_note': 'Salvar',
       'pills': 'Pílulas',
+      'back': 'Voltar',
     },
-    'ht_HT': {
+
+    // ✅ CREOLE (HAITIAN)
+    'ht': {
       'no_medication_data': 'Okenn done dwòg ki disponib',
       'pause': 'Poz',
       'play': 'Jwe',
@@ -124,11 +133,13 @@ class AppTranslations extends Translations {
       'storage_instructions': 'Enstriksyon pou Estoke',
       'interactions': 'Entèraksyon',
       'add_notes': 'Ajoute Nòt',
-      'save_note': 'Anrejistre Nòt',
-      'back': 'Retounen',
+      'save_note': 'Anrejistre',
       'pills': 'Pilil',
+      'back': 'Retounen',
     },
-    'zh_CN': {
+
+    // ✅ CHINESE (SIMPLIFIED)
+    'zh-CN': {
       'no_medication_data': '没有可用的药物数据',
       'pause': '暂停',
       'play': '播放',
@@ -149,11 +160,13 @@ class AppTranslations extends Translations {
       'storage_instructions': '存储说明',
       'interactions': '相互作用',
       'add_notes': '添加备注',
-      'save_note': '保存备注',
-      'back': '返回',
+      'save_note': '保存',
       'pills': '药丸',
+      'back': '返回',
     },
-    'ru_RU': {
+
+    // ✅ RUSSIAN
+    'ru': {
       'no_medication_data': 'Нет доступных данных о лекарствах',
       'pause': 'Пауза',
       'play': 'Воспроизвести',
@@ -174,9 +187,9 @@ class AppTranslations extends Translations {
       'storage_instructions': 'Инструкции по Хранению',
       'interactions': 'Взаимодействия',
       'add_notes': 'Добавить Заметки',
-      'save_note': 'Сохранить Заметку',
-      'back': 'Назад',
+      'save_note': 'Сохранить',
       'pills': 'Таблетки',
+      'back': 'Назад',
     },
   };
 }

@@ -159,7 +159,7 @@ class RecentlyScznned extends StatelessWidget {
                                         style: const TextStyle(
                                           fontFamily: 'Open Sans',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 10.0,
+                                          fontSize: 20.0,
                                           color: Color(0xFF4F85AA),
                                           decoration: TextDecoration.underline,
                                         ),

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:get/get.dart';
 import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
+import 'package:saymymeds/app/views/screens/settings/view/setting_all_page_cntroller/global_languages_contrlooer.dart';
 import 'package:saymymeds/app/widgets/BottomNav.dart';
 
 class LanguageSelection extends StatefulWidget {
@@ -13,13 +14,13 @@ class LanguageSelection extends StatefulWidget {
 }
 
 class _LanguageSelectionState extends State<LanguageSelection> {
-  String selectedLanguage = "English";
+  // ✅ Use Get.put to ensure controller is initialized
+  late final GlobalLanguageController globalLanguageController;
 
-  // ✅ Keep the language keys as they are for selection logic
   final List<Map<String, String>> languages = [
     {"key": "English", "display": "english"},
-    {"key": "Spanish (Español)", "display": "spanish"},
-    {"key": "French (Français)", "display": "french"},
+    {"key": "Spanish", "display": "spanish"},
+    {"key": "French", "display": "french"},
     {"key": "Creole", "display": "creole"},
     {"key": "Portugese", "display": "portugese"},
     {"key": "Chinese", "display": "chinese"},
@@ -27,6 +28,17 @@ class _LanguageSelectionState extends State<LanguageSelection> {
   ];
 
   int _currentIndex = 3;
+
+  @override
+  void initState() {
+    super.initState();
+    // ✅ Initialize or find the controller
+    try {
+      globalLanguageController = Get.find<GlobalLanguageController>();
+    } catch (e) {
+      globalLanguageController = Get.put(GlobalLanguageController());
+    }
+  }
 
   void _onNavTap(int index) {
     setState(() {
@@ -68,7 +80,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
           child: AppBar(
             leading: InkWell(
               onTap: () {
-                context.pop("/");
+                context.pop();
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -114,6 +126,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
             ),
             const SizedBox(height: 40),
 
+            // ✅ Fixed: ListView with individual Obx widgets
             Expanded(
               child: ListView.builder(
                 itemCount: languages.length,
@@ -121,27 +134,38 @@ class _LanguageSelectionState extends State<LanguageSelection> {
                   final langKey = languages[index]["key"]!;
                   final langDisplay = languages[index]["display"]!;
 
-                  return RadioListTile<String>(
-                    activeColor: AppColors.forgetPasswordOpacity,
-                    title: Text(
-                      langDisplay.tr,
-                      style: TextStyle(
-                        fontWeight: selectedLanguage == langKey
-                            ? FontWeight.bold
-                            : FontWeight.w400,
-                        color: selectedLanguage == langKey
-                            ? AppColors.buttonColor
-                            : Colors.black87,
+                  // ✅ Wrap each RadioListTile in its own Obx
+                  return Obx(() {
+                    final isSelected =
+                        globalLanguageController
+                            .selectedDisplayLanguage
+                            .value ==
+                        langKey;
+
+                    return RadioListTile<String>(
+                      activeColor: AppColors.forgetPasswordOpacity,
+                      title: Text(
+                        langDisplay.tr,
+                        style: TextStyle(
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.w400,
+                          color: isSelected
+                              ? AppColors.buttonColor
+                              : Colors.black87,
+                        ),
                       ),
-                    ),
-                    value: langKey,
-                    groupValue: selectedLanguage,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedLanguage = value!;
-                      });
-                    },
-                  );
+                      value: langKey,
+                      groupValue: globalLanguageController
+                          .selectedDisplayLanguage
+                          .value,
+                      onChanged: (value) {
+                        if (value != null) {
+                          globalLanguageController.changeLanguage(value);
+                        }
+                      },
+                    );
+                  });
                 },
               ),
             ),

@@ -94,7 +94,6 @@ class AppTranslations extends Translations {
       'save_note': 'Save Note',
       'play': 'Play',
     },
-
     'es': {
       // home screen
       'hello': 'Hola',
@@ -283,7 +282,7 @@ class AppTranslations extends Translations {
       'settings': 'Configurações',
       // end bottom nav bar
       // scane screen can be added here
-      'camera': 'Cámara',
+      'camera': 'Câmera',
       'photos': 'Fotos',
       // end scane screen
 
@@ -436,7 +435,6 @@ class AppTranslations extends Translations {
       'save_note': 'Anrejistre Nòt',
       'play': 'Jwe',
     },
-
     'ru': {
       "hello": "Здравствуйте",
       "scan_medication": "Сканировать медикамент",
@@ -521,41 +519,28 @@ class AppTranslations extends Translations {
       'save_note': 'Сохранить Заметку',
       'play': 'Воспроизвести',
     },
-    'cn': {
+    'zh_Hans_CN': {
       "hello": "你好",
       "scan_medication": "扫描药物",
       "scan_instruction": "将您的摄像头对准标签以识别药物。",
       "scan_button": "扫描",
       "recently_scanned": "最近扫描",
       "font": "Open Sans",
-      // 2nd screen can be added here
-
-      // end 2nd screen
-      // custom translations for bottom nav bar
       'home': '首页',
       'scan': '扫描',
       'medications': '药物',
       'settings': '设置',
-      // end bottom nav bar
-      // scane screen can be added here
       'camera': '相机',
       'photos': '照片',
-      // end scane screen
-      // medication page can be added here
       "deleteMedication": "删除药物",
       "areYouSureDelete": "您确定要删除吗？",
       "cancel": "取消",
       "delete": "删除",
-      "medications": "药物",
       "searchMedications": "搜索药物",
       "noMedicationsFound": "未找到药物。",
       "unknownMedication": "未知，此药物",
-      "brandName": "品牌名称",
+      "brand_name": "品牌名称",
       "checkInfo": "检查信息",
-      // medication page can be added here
-
-      // setting page can be added here
-      "settings": "设置",
       "editProfile": "编辑个人资料",
       "languageSelection": "语言选择",
       "aboutUs": "关于我们",
@@ -576,18 +561,10 @@ class AppTranslations extends Translations {
       "portugese": "葡萄牙语",
       "chinese": "中文",
       "russian": "俄语",
-      // end setting page
-
-      // recently screen can be added here
-      // ignore: equal_keys_in_map
-      "noMedicationsFound": "未找到药物",
       "genericName": "通用名称",
       "viewDetails": "查看详情",
       "seeAll": "查看全部",
-
-      // end recently screen
       'generic_name': '通用名称',
-      'brand_name': '品牌名称',
       'manufacturer': '制造商',
       'drug_class': '药物类别',
       'uses': '用途',
@@ -604,6 +581,84 @@ class AppTranslations extends Translations {
       'interactions': '相互作用',
       'add_notes': '添加备注',
       'save_note': '保存备注',
+      'play': '播放',
+    },
+    // ✅ Also add simpler fallback keys
+    'zh_CN': {
+      "hello": "你好",
+      "scan_medication": "扫描药物",
+      "scan_instruction": "将您的摄像头对准标签以识别药物。",
+      "scan_button": "扫描",
+      "recently_scanned": "最近扫描",
+      "font": "Open Sans",
+      'home': '首页',
+      'scan': '扫描',
+      'medications': '药物',
+      'settings': '设置',
+      'camera': '相机',
+      'photos': '照片',
+      "deleteMedication": "删除药物",
+      "areYouSureDelete": "您确定要删除吗？",
+      "cancel": "取消",
+      "delete": "删除",
+      "searchMedications": "搜索药物",
+      "noMedicationsFound": "未找到药物。",
+      "unknownMedication": "未知，此药物",
+      "brand_name": "品牌名称",
+      "checkInfo": "检查信息",
+      "editProfile": "编辑个人资料",
+      "languageSelection": "语言选择",
+      "aboutUs": "关于我们",
+      "contactUs": "联系我们",
+      "logout": "退出",
+      "changePhoto": "更改照片",
+      "fullName": "全名",
+      "error": "错误",
+      "nameCannotBeEmpty": "姓名不能为空",
+      "success": "成功",
+      "profileUpdated": "个人资料更新成功",
+      "failedToUpdateProfile": "更新个人资料失败",
+      "saveChanges": "保存更改",
+      "english": "英语",
+      "spanish": "西班牙语 (Español)",
+      "french": "法语 (Français)",
+      "creole": "克里奥尔语",
+      "portugese": "葡萄牙语",
+      "chinese": "中文",
+      "russian": "俄语",
+      "genericName": "通用名称",
+      "viewDetails": "查看详情",
+      "seeAll": "查看全部",
+      'generic_name': '通用名称',
+      'manufacturer': '制造商',
+      'drug_class': '药物类别',
+      'uses': '用途',
+      'dosage_information': '剂量信息',
+      'adults': '成人',
+      'children': '儿童',
+      'elderly': '老年人',
+      'how_to_take': '如何服用',
+      'side_effects': '副作用',
+      'common': '常见',
+      'serious': '严重',
+      'warnings': '警告',
+      'storage_instructions': '存储说明',
+      'interactions': '相互作用',
+      'add_notes': '添加备注',
+      'save_note': '保存备注',
+      'play': '播放',
+    },
+    'zh': {
+      // Simplest fallback
+      "hello": "你好",
+      "scan_medication": "扫描药物",
+      "scan_instruction": "将您的摄像头对准标签以识别药物。",
+      "scan_button": "扫描",
+      "recently_scanned": "最近扫描",
+      'home': '首页',
+      'scan': '扫描',
+      'medications': '药物',
+      'settings': '设置',
       'play': '播放',
     },
   };

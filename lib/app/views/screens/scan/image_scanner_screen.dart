@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
-import 'package:saymymeds/app/views/screens/view_details/medicaton_controlr/medication_controller.dart';
+import 'package:saymymeds/app/views/screens/view_details/view_controlr/view_detiails_controller.dart';
 import 'package:saymymeds/app/widgets/BottomNav.dart';
 
 class ImageScannerScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class ImageScannerScreen extends StatefulWidget {
 }
 
 class _ImageScannerScreenState extends State<ImageScannerScreen> {
-  final MedicineController controller = Get.put(MedicineController());
+  final ViewDetailsController controller = Get.put(ViewDetailsController());
   int _currentIndex = 1;
 
   void _onNavTap(int index) {

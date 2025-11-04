@@ -260,7 +260,7 @@ import 'package:go_router/go_router.dart';
 import 'package:saymymeds/app/core/app_routes/app_routes.dart';
 import 'package:saymymeds/app/utlies/apps_color.dart';
 import 'package:saymymeds/app/widgets/BottomNav.dart';
-import 'package:saymymeds/app/views/screens/home/controller/home_page_edit_profilecontroller.dart';
+import 'package:saymymeds/app/views/screens/home/controller/home_page_&_edit_profilecontroller.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -274,7 +274,8 @@ class _EditProfileState extends State<EditProfile> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
   late TextEditingController _nameController;
-  final ProfileController profileController = Get.find<ProfileController>();
+  final HomePageEditProfilecontroller profileController =
+      Get.find<HomePageEditProfilecontroller>();
 
   @override
   void initState() {

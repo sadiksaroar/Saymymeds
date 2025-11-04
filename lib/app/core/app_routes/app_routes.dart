@@ -6,7 +6,8 @@ import 'package:saymymeds/app/views/screens/auth/new_password.dart';
 import 'package:saymymeds/app/views/screens/auth/sigin_in.dart';
 import 'package:saymymeds/app/views/screens/auth/sign_up.dart';
 import 'package:saymymeds/app/views/screens/auth/verifiy_code.dart';
-import 'package:saymymeds/app/views/screens/home/views/home_view.dart';
+import 'package:saymymeds/app/views/screens/home/home_view_page.dart';
+
 import 'package:saymymeds/app/views/screens/home/views/screens/SubscriptionCard/subscription_card.dart';
 import 'package:saymymeds/app/views/screens/medications/view/cheack_info.dart';
 import 'package:saymymeds/app/views/screens/medications/view/medication.dart';

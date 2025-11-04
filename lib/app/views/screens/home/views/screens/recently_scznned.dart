@@ -100,7 +100,7 @@ class RecentlyScznned extends StatelessWidget {
                                     style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       height: 1.2,
                                       color: Colors.black,
                                     ),
@@ -114,7 +114,7 @@ class RecentlyScznned extends StatelessWidget {
                                   child: RichText(
                                     text: TextSpan(
                                       style: const TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 12,
                                         color: Colors.black87,
                                         fontFamily: 'Poppins',
                                       ),
@@ -144,7 +144,7 @@ class RecentlyScznned extends StatelessWidget {
                                       _formatDate(medicine.createdAt),
                                       style: const TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 14,
+                                        fontSize: 12,
                                       ),
                                     ),
                                     // ✅ View details with translation
@@ -159,7 +159,7 @@ class RecentlyScznned extends StatelessWidget {
                                         style: const TextStyle(
                                           fontFamily: 'Open Sans',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 20.0,
+                                          fontSize: 12.0,
                                           color: Color(0xFF4F85AA),
                                           decoration: TextDecoration.underline,
                                         ),

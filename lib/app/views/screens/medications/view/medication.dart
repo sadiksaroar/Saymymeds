@@ -311,7 +311,7 @@ class _MedicationState extends State<Medication> {
                                             children: [
                                               TextSpan(
                                                 text:
-                                                    "${'brandName'.tr}: ", // ✅ Changed
+                                                    "${'brand_name'.tr}: ", // ✅ Changed
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                 ),

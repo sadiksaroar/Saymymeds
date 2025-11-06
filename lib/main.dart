@@ -37,10 +37,9 @@ class MyApp extends StatelessWidget {
         routeInformationParser: AppRoutes.router.routeInformationParser,
         routeInformationProvider: AppRoutes.router.routeInformationProvider,
         title: 'Say My Meds',
-        // ✅ এই দুটি লাইন যোগ করুন
-        translations: AppTranslations(), // ট্রান্সলেশন ক্লাস
-        locale: Get.deviceLocale, // ডিভাইস ল্যাঙ্গুয়েজ সেট করুন
-        fallbackLocale: const Locale('en', 'US'), // ডিফল্ট ল্যাঙ্গুয়েজ
+        translations: AppTranslations(),
+        locale: Get.deviceLocale,
+        fallbackLocale: const Locale('en', 'US'),
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
